@@ -1,0 +1,88 @@
+@startuml
+class card
+{
+
+}
+
+package animals{
+abstract class animalsCard
+{
+
+}
+
+class cat extends animalsCard
+{
+
+}
+
+class grizzly extends animalsCard
+{
+
+}
+
+class coyote extends animalsCard
+{
+
+}
+
+class sparrow extends animalsCard
+{
+
+}
+
+class raven extends animalsCard
+{
+
+}
+
+class squirrel extends animalsCard
+{
+
+}
+
+class ermine extends animalsCard
+{
+
+}
+
+class wolfPup extends animalsCard
+{
+
+}
+
+class wolf extends animalsCard
+{
+
+}
+
+class bedBug extends animalsCard
+{
+
+}
+
+}
+
+package obstacles
+{
+abstract class obstaclesCard
+{
+
+}
+
+class rock extends obstaclesCard
+{
+
+}
+
+class fir extends obstaclesCard
+{
+
+}
+
+}
+
+animalsCard -up-> card
+obstaclesCard -up-> card
+
+
+@enduml
