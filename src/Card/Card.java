@@ -20,8 +20,8 @@ public abstract class Card
         return _nom;
     }
 
-    public int takeDamage(int _damage)
+    public int takeDamage(int damage)
     {
-        return _healthPoint -= _damage;
+        return _healthPoint -= damage;
     }
 }
