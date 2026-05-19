@@ -1,5 +1,125 @@
 @startuml
+Abstract class Card
+{
 
+}
 
+class Player{
+}
 
+class Deck{
+}
+
+class Hand{
+}
+
+class Game{
+}
+
+class Board{
+}
+
+class ScoreManager{
+}
+
+class Enemy{
+}
+
+class Display{
+}
+
+class Main{
+}
+
+package animals{
+abstract class AnimalsCard
+{
+
+}
+
+class Cat extends AnimalsCard
+{
+
+}
+
+class Grizzly extends AnimalsCard
+{
+
+}
+
+class Coyote extends AnimalsCard
+{
+
+}
+
+class Sparrow extends AnimalsCard
+{
+
+}
+
+class Raven extends AnimalsCard
+{
+
+}
+
+class Squirrel extends AnimalsCard
+{
+
+}
+
+class Ermine extends AnimalsCard
+{
+
+}
+
+class WolfPup extends AnimalsCard
+{
+
+}
+
+class Wolf extends AnimalsCard
+{
+
+}
+
+class BedBug extends AnimalsCard
+{
+
+}
+
+}
+
+package Obstacles
+{
+abstract class ObstaclesCard
+{
+
+}
+
+class Rock extends ObstaclesCard
+{
+
+}
+
+class Fir extends ObstaclesCard
+{
+
+}
+
+}
+
+AnimalsCard <-up- Card
+ObstaclesCard <-up- Card
+Hand <-up- Player
+Deck <-up- Player
+Card <-up- Deck
+Card <-up- Hand
+Game -down-> Player
+Game -down-> Board
+Game -down-> ScoreManager
+Game -down-> Enemy
+Game -down-> Display
+Hand <-up- Enemy
+Deck <-up- Enemy
+Main -down-> Game
 @enduml
