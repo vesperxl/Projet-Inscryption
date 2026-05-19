@@ -82,7 +82,7 @@ class Wolf extends AnimalsCard
 
 }
 
-class BedBug extends AnimalsCard
+class Bug extends AnimalsCard
 {
 
 }
