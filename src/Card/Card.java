@@ -4,6 +4,11 @@ public abstract class Card
 {
     private String _nom;
     private int _healthPoint;
+
+    public Card(String name, int hp){
+        this._nom = name;
+        this._healthPoint = hp;
+    }
     
     public int get_healthPoint()
     {
