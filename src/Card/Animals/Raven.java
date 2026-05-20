@@ -2,8 +2,8 @@ package Card.Animals;
 
 public class Raven extends AnimalsCard
 {
-    public Raven(int hp, int attack)
+    public Raven()
     {
-        super("Raven", hp, attack);
+        super("Raven", 3,2);
     }
 }

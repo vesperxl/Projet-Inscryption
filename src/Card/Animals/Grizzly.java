@@ -2,8 +2,8 @@ package Card.Animals;
 
 public class Grizzly extends AnimalsCard
 {
-    public Grizzly(int hp, int attack)
+    public Grizzly()
     {
-        super("Grizzly", hp, attack);
+        super("Grizzly", 6,4);
     }
 }
