@@ -3,8 +3,8 @@ package Card.Obstacles;
 public class Rock extends ObstaclesCard{
 
 
-    public Rock(int hp) {
-        super("Rock", hp);
+    public Rock() {
+        super("Rock", 5);
     }
 }
 
