@@ -4,6 +4,6 @@ public class Ermine extends AnimalsCard
 {
     public Ermine()
     {
-        super("Ermine", 3,1);
+        super("Ermine", 3,1, 1, 0);
     }
 }
