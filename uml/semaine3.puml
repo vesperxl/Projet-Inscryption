@@ -1,22 +1,37 @@
 @startuml
 Abstract class Card
 {
+    - String _nom
+    - int _healthPoint
 
+    + Card(String name, int hp)
+    + int get_healthPoint()
+    + String get_nom()
+    + int takeDamage(int damage)
 }
 
 class Player{
 }
 
 class Deck{
+    - Deque<Card> _cards
+
+    - Deck()
+    + static Deck randomDeck()
+    + shuffle()
+    + addCard(Card carte)
+    + Card draw()
 }
 
 class Hand{
+ - ArrayList<Card> _cardHand
+ - Deck _deck
+
+ + Hand()
+ + Draw()
 }
 
 class Game{
-}
-
-class Board{
 }
 
 class ScoreManager{
@@ -34,9 +49,9 @@ class Main{
 package animals{
 abstract class AnimalsCard
 {
-    - int _Attack
-    - int _Blood
-    - int _Bone
+    - int _attack
+    - int _blood
+    - int _bone
 
     + AnimalsCard(String name, int hp,int attack)
     + int get_Attack()
@@ -92,9 +107,9 @@ class Bug extends AnimalsCard
     + Bug()
 }
 
+interface Flyable{
 }
 
-interface Flyable{
 }
 
 package Obstacles
