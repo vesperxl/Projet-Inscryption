@@ -1,0 +1,133 @@
+@startuml
+Abstract class Card
+{
+
+}
+
+class Player{
+}
+
+class Deck{
+}
+
+class Hand{
+}
+
+class Game{
+}
+
+class Board{
+}
+
+class ScoreManager{
+}
+
+class Enemy{
+}
+
+class Display{
+}
+
+class Main{
+}
+
+package animals{
+abstract class AnimalsCard
+{
+    - int _Attack
+    - int _Blood
+    - int _Bone
+
+    + AnimalsCard(String name, int hp,int attack)
+    + int get_Attack()
+}
+
+class Cat extends AnimalsCard
+{
+    + Cat()
+}
+
+class Grizzly extends AnimalsCard
+{
+    + Grizzly()
+}
+
+class Coyote extends AnimalsCard
+{
+    + Coyote()
+}
+
+class Sparrow extends AnimalsCard implements Flyable
+{
+    + Sparrow()
+}
+
+class Raven extends AnimalsCard implements Flyable
+{
+    + Raven()
+}
+
+class Squirrel extends AnimalsCard
+{
+     + Squirrel()
+}
+
+class Ermine extends AnimalsCard
+{
+    + Ermine()
+}
+
+class WolfPup extends AnimalsCard
+{
+    + WolfPup()
+}
+
+class Wolf extends AnimalsCard
+{
+     + Wolf()
+}
+
+class Bug extends AnimalsCard
+{
+    + Bug()
+}
+
+}
+
+interface Flyable{
+}
+
+package Obstacles
+{
+abstract class ObstaclesCard
+{
+    + ObstaclesCard(String name, int hp)
+}
+
+class Rock extends ObstaclesCard
+{
+    + Rock()
+}
+
+class Fir extends ObstaclesCard
+{
+    + Fir()
+}
+
+}
+
+AnimalsCard <-up- Card
+ObstaclesCard <-up- Card
+Hand <-up- Player
+Deck <-up- Player
+Card <-up- Deck
+Card <-up- Hand
+Game -down-> Player
+Game -down-> Board
+Game -down-> ScoreManager
+Game -down-> Enemy
+Game -down-> Display
+Hand <-up- Enemy
+Deck <-up- Enemy
+Main -down-> Game
+@enduml
