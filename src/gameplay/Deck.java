@@ -25,7 +25,7 @@ public class Deck {
         }
 
         for(int i = 0; i < 15 - nbEcureuil; i++){
-            deck._cards.push(Card.getRandomCard());
+            deck._cards.push(Card.getRandomAnimalCard());
         }
 
         deck.shuffle();
@@ -47,7 +47,7 @@ public class Deck {
 
     }
 
-    public Card piocher() throws Exception{
+    public Card draw() throws Exception{
         if(_cards.isEmpty()){
             throw new Exception("Plus de carte dans le deck");
         }

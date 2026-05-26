@@ -32,7 +32,7 @@ public abstract class Card
 
     }
 
-    public static Card getRandomCard(){
+    public static Card getRandomAnimalCard(){
         Random rdm = new Random();
         int choix = rdm.nextInt(10);
 
@@ -49,5 +49,14 @@ public abstract class Card
             default: return new WolfPup();
         }
 
+    }
+
+    public static Card getRandomObstacleCard(){
+        Random rdm = new Random();
+        int choix = rdm.nextInt(3);
+        switch (choix){
+            case 0: return new Fir();
+            default: return new Rock();
+        }
     }
 }

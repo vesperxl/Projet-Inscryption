@@ -6,26 +6,23 @@ import java.util.ArrayList;
 
 public class Hand {
 
-    private ArrayList<Card> _cardHand;
-    private Deck _pioche;
+    private ArrayList<Card> _handCards;
 
-    public Hand(){
-        _cardHand = new ArrayList<>();
-        _pioche = Deck.randomDeck();
-        try{
-            for(int i = 0;i < 3;i++){
-                _cardHand.add(_pioche.piocher());
+    public Hand(Deck deck){
+       this._handCards = new ArrayList<>();
+            for(int i = 0; i < 4;i++)
+            {
+                try {
+                    this._handCards.add(deck.draw());
+                }catch(Exception e){
+                        System.out.println("Dans le constructeur : " +  e.getMessage());
+                }
             }
         }
-        catch(Exception e){
-            System.out.println("Dans le constructeur : " +  e.getMessage());
-        }
 
-    }
-
-    public void piocher(){
+    public void draw(Deck deck){
         try{
-            _cardHand.add(_pioche.piocher());
+            _handCards.add(deck.draw());
         }catch(Exception e){
             System.out.println("Dans pioche() : " + e.getMessage());
         }
