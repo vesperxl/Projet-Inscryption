@@ -3,16 +3,14 @@ package gameplay;
 import Card.Animals.Squirrel;
 import Card.Card;
 
-import java.util.Collections;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 public class Deck {
 
-    private Stack<Card> _cards;
+    private Deque<Card> _cards;
 
     private Deck(){
-        this._cards = new Stack<>();
+        this._cards = new ArrayDeque<>();
     }
 
     public static Deck randomDeck(){
@@ -22,7 +20,7 @@ public class Deck {
         Random rdm = new Random();
         int nbEcureuil = rdm.nextInt(4) + 8;
 
-        for(int i = 0; i < nbEcureuil){
+        for(int i = 0; i < nbEcureuil;i++){
             deck._cards.push(new Squirrel());
         }
 
@@ -30,18 +28,30 @@ public class Deck {
             deck._cards.push(Card.getRandomCard());
         }
 
-        Collections.shuffle(deck._cards);
-
+        deck.shuffle();
 
         return deck;
+    }
+
+
+    public void shuffle(){
+        List<Card> temp = new ArrayList<>(this._cards);
+        Collections.shuffle(temp);
+        this._cards.clear();
+        this._cards.addAll(temp);
+
+    }
+    public void addCard(Card carte){
+        this._cards.addLast(carte);
 
 
     }
 
-    public void addCard(Card carte){
-
-        this._cards.push(carte);
-
+    public Card piocher() throws Exception{
+        if(_cards.isEmpty()){
+            throw new Exception("Plus de carte dans le deck");
+        }
+        return this._cards.pop();
     }
 
 }
