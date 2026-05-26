@@ -1,6 +1,6 @@
 package Card.Animals;
 
-public class Raven extends AnimalsCard
+public class Raven extends AnimalsCard implements  Flyable
 {
     public Raven()
     {

@@ -1,6 +1,6 @@
 package Card.Animals;
 
-public class Sparrow extends AnimalsCard
+public class Sparrow extends AnimalsCard implements Flyable
 {
     public Sparrow()
     {

@@ -11,4 +11,8 @@ public abstract class AnimalsCard extends Card
         super(name, hp);
         _Attack = attack;
     }
+
+    public int get_Attack(){
+        return _Attack;
+    }
 }
