@@ -6,4 +6,5 @@ public class Display {
         System.out.println("///////////////INSCRYPTION///////////////");
         System.out.println("/////////////////////////////////////////");
     }
+
 }
