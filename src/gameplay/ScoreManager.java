@@ -1,3 +1,5 @@
+package gameplay;
+
 public class ScoreManager {
     private int _score;
 

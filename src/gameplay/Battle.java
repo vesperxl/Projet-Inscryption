@@ -4,11 +4,15 @@ import Card.Card;
 import Card.Obstacles.Fir;
 import Card.Obstacles.Rock;
 
+
+import java.sql.SQLClientInfoException;
 import java.util.Random;
 
 public class Battle
 {
     private Board board;
+    private ScoreManager scoreManager;
+
     private void initialize (){
         Random rand = new Random();
 
@@ -31,7 +35,18 @@ public class Battle
 
             if (attackCard != null)
             {
-                attackCard.getAttack();
+                int attackPower = attackCard.getAttack();
+                if (attackCard.isFlyable())
+                {
+                    scoreManager.addEnemyPoint(attackPower);
+                }
+                else
+                {
+                    for (int j = 0; j <= 3; j++)
+                    {
+
+                    }
+                }
             }
         }
     }

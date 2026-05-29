@@ -64,4 +64,8 @@ public abstract class Card
         return 0;
     }
 
+    public boolean isFlyable()
+    {
+        return false;
+    }
 }

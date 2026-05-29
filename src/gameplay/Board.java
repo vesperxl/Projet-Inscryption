@@ -70,4 +70,9 @@ public class Board {
     {
         return this._playerLine[index];
     }
+
+    public Card getEnemiCard(int index)
+    {
+        return this._enemyLine[index];
+    }
 }

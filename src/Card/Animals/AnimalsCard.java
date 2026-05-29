@@ -21,5 +21,9 @@ public abstract class AnimalsCard extends Card
         return _attack;
     }
 
-
+    @Override
+    public boolean isFlyable()
+    {
+        return true;
+    }
 }
