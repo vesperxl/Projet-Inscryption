@@ -1,7 +1,11 @@
 import Display.Display;
+import gameplay.Board;
+import gameplay.Player;
 
 public class Game {
-    public static void main(String[] args){
-        Display.start();
-    }
+
+    private Board board;
+    private Player joueur;
+    
+
 }
