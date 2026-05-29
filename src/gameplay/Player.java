@@ -7,20 +7,20 @@ import java.util.ArrayList;
 public class Player {
     private Deck _deck;
     private Hand _hand;
-    private boolean _enemy;
-    private ArrayList<Card>  _board;
 
-    public Player(boolean enemy){
+    public Player(){
         this._deck = Deck.randomDeck();
         this._hand = new Hand(_deck);
-        this._enemy = enemy;
+
     }
 
     public void draw(){
         _hand.draw(_deck);
     }
 
-    public boolean isEnemy(){
-        return _enemy;
+    public Hand getHand(){
+        return _hand;
     }
+
+
 }

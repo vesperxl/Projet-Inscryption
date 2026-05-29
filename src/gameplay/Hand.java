@@ -32,5 +32,9 @@ public class Hand {
         this._handCards.remove(index);
     }
 
+    public boolean containsCard(Card card){
+        return _handCards.contains(card);
+    }
+
 
 }
