@@ -35,18 +35,7 @@ public class Battle
 
             if (attackCard != null)
             {
-                int attackPower = attackCard.getAttack();
-                if (attackCard.isFlyable())
-                {
-                    scoreManager.addEnemyPoint(attackPower);
-                }
-                else
-                {
-                    for (int j = 0; j <= 3; j++)
-                    {
 
-                    }
-                }
             }
         }
     }
