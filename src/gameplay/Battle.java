@@ -1,5 +1,6 @@
 package gameplay;
 
+import Card.Card;
 import Card.Obstacles.Fir;
 import Card.Obstacles.Rock;
 
@@ -17,22 +18,22 @@ public class Battle
 
             if (chance == 0)
             {
-                chance = rand.nextInt(2);
-                if (chance == 0)
-                {
-                    board.placePlayerCard(new Rock(), i);
-                }
-                else
-                {
-                    board.placePlayerCard(new Fir(), i);
-                }
+                Card.getRandomObstacleCard();
             }
         }
     }
 
     private void attack()
     {
+        for (int i = 0; i <= 3; i++)
+        {
+            Card attackCard = board.getPlayerCard(i);
 
+            if (attackCard != null)
+            {
+                attackCard.getAttack();
+            }
+        }
     }
 
 }

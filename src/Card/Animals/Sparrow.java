@@ -6,4 +6,5 @@ public class Sparrow extends AnimalsCard implements Flyable
     {
         super("Sparrow", 2,1, 1, 0);
     }
+
 }

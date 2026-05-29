@@ -43,4 +43,8 @@ public class Board {
         return true;
     }
 
+    public Card getPlayerCard(int index)
+    {
+        return this._playerLine[index];
+    }
 }

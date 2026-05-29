@@ -16,7 +16,10 @@ public abstract class AnimalsCard extends Card
         _bone = bone;
     }
 
-    public int get_attack(){
+    @Override
+    public int getAttack(){
         return _attack;
     }
+
+
 }

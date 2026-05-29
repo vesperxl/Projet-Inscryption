@@ -53,10 +53,15 @@ public abstract class Card
 
     public static Card getRandomObstacleCard(){
         Random rdm = new Random();
-        int choix = rdm.nextInt(3);
+        int choix = rdm.nextInt(2);
         switch (choix){
             case 0: return new Fir();
             default: return new Rock();
         }
     }
+
+    public int getAttack() {
+        return 0;
+    }
+
 }
