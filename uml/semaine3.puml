@@ -1,4 +1,4 @@
-@startuml
+S@startuml
 Abstract class Card
 {
     - String _nom
