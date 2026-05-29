@@ -28,5 +28,9 @@ public class Hand {
         }
     }
 
+    public void retire(int index){
+        this._handCards.remove(index);
+    }
+
 
 }
