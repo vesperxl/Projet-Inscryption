@@ -27,6 +27,16 @@ public class Battle
         }
     }
 
+    private void basicAttack()
+    {
+
+    }
+
+    private void flyableAttack()
+    {
+
+    }
+
     private void attack()
     {
         for (int i = 0; i <= 3; i++)
