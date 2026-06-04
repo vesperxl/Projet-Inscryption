@@ -20,12 +20,9 @@ public class Hand {
             }
         }
 
-    public void draw(Deck deck){
-        try{
-            _handCards.add(deck.draw());
-        }catch(Exception e){
-            System.out.println("Dans pioche() : " + e.getMessage());
-        }
+    public void draw(Deck deck) throws IllegalStateException{
+        _handCards.add(deck.draw());
+
     }
 
     public void retire(int index){

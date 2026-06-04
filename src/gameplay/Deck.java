@@ -47,9 +47,9 @@ public class Deck {
 
     }
 
-    public Card draw() throws Exception{
+    public Card draw() throws IllegalStateException{
         if(_cards.isEmpty()){
-            throw new Exception("Plus de carte dans le deck");
+            throw new IllegalStateException("Plus de carte dans le deck !");
         }
         return this._cards.pop();
     }

@@ -77,4 +77,15 @@ public class Board {
             return this._enemyLine[index];
         }
     }
+
+    public void moveEnemyIntention(){
+        for(int i = 0;i < 4; i++){
+            if (this._enemyIntentions[i] != null && this._enemyLine[i] == null) {
+
+                this._enemyLine[i] = this._enemyIntentions[i];
+
+                this._enemyLine[i] = null;
+            }
+        }
+    }
 }
