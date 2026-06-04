@@ -15,7 +15,7 @@ public class Game {
     public Game(){
         _board = new Board(_player);
         _player = new Player();
-        _score = new ScoreManager();
+        _score = new ScoreManager(_player);
     }
 
    public boolean placePlayerCard(Card card, int index){
