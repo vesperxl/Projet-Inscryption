@@ -1,17 +1,21 @@
 package gameplay;
 
 public class ScoreManager {
-    private int _score;
+    private int _score = 0;
+    private Player _player;
 
-    public ScoreManager(){
-        _score = 0;
+
+    public ScoreManager(Player player){
+        this._player = player;
     }
 
-    public void addPlayerPoint(int points){
-        _score += points;
-    }
-    public void addEnemyPoint(int points){
-        _score -= points;
+    public void addPoint(int points, Player player){
+        if (player == this._player){
+            this._score += points;
+        }
+        else{
+            this._score -= points;
+        }
     }
 
     public int getScore(){

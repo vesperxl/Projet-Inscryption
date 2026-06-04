@@ -1,6 +1,10 @@
 package Card.Animals;
 
 import Card.Card;
+import gameplay.Battle;
+import gameplay.Board;
+import gameplay.Player;
+import gameplay.ScoreManager;
 
 public abstract class AnimalsCard extends Card
 {
@@ -8,7 +12,7 @@ public abstract class AnimalsCard extends Card
     private int _blood;
     private int _bone;
 
-    public AnimalsCard(String name, int hp,int attack, int blood, int bone)
+    public AnimalsCard(String name, int hp, int attack, int blood, int bone)
     {
         super(name, hp);
         _attack = attack;
@@ -17,8 +21,14 @@ public abstract class AnimalsCard extends Card
     }
 
     @Override
-    public int getAttack(){
-        return _attack;
+    public void attack(Player attacker, int index, ScoreManager scoreManager,  Card card)
+    {
+        Battle.basicAttack(attacker, index, _attack, scoreManager, card);
     }
 
+    @Override
+    public int getAttack()
+    {
+        return _attack;
+    }
 }

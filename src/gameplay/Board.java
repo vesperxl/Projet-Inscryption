@@ -6,14 +6,16 @@ public class Board {
     private Card[] _enemyLine;
     private Card[] _playerLine;
     private Card[] _enemyIntentions;
+    private Player _player;
 
 
 
 
-    public Board(){
+    public Board(Player player){
         this._enemyLine = new Card[4];
         this._playerLine = new Card[4];
         this._enemyIntentions = new Card[4];
+        this._player = player;
     }
 
     public boolean placeEnemyIntention(Card card, int index){
@@ -66,13 +68,13 @@ public class Board {
         return true;
     }
 
-    public Card getPlayerCard(int index)
+    public Card getCard(int index, Player player)
     {
-        return this._playerLine[index];
-    }
-
-    public Card getEnemiCard(int index)
-    {
-        return this._enemyLine[index];
+        if (player == this._player){
+            return this._playerLine[index];
+        }
+        else{
+            return this._enemyLine[index];
+        }
     }
 }
