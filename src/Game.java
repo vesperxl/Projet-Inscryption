@@ -13,7 +13,7 @@ public class Game {
 
 
     public Game(){
-        _board = new Board();
+        _board = new Board(_player);
         _player = new Player();
         _score = new ScoreManager();
     }
@@ -48,7 +48,10 @@ public class Game {
 
 
 
+   public void sacrifice(Card card)
+   {
 
+   }
 
 
 }

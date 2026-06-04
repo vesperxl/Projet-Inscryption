@@ -27,26 +27,39 @@ public class Battle
         }
     }
 
-    private void attack()
+    public static void basicAttack(Player attacker, int index, int attack, ScoreManager scoreManager, Card card)
+    {
+        if(card != null){
+            int attackDiff = attack;
+            int cardLife = card.get_healthPoint();
+            attackDiff -= cardLife;
+
+            if (attackDiff > 0){
+                card.takeDamage(attack);
+                scoreManager.addPoint(attackDiff, attacker);
+            }
+            else{
+                card.takeDamage(attack);
+            }
+        }
+        else{
+            scoreManager.addPoint(attack, attacker);
+        }
+    }
+
+    public static void flyableAttack(Player attacker, int index, int attack, ScoreManager scoreManager, Card card)
+    {
+        scoreManager.addPoint(attack, attacker);
+    }
+
+    private void attack(Player attacker, Player defender)
     {
         for (int i = 0; i <= 3; i++)
         {
-            Card attackCard = board.getPlayerCard(i);
-
-            if (attackCard != null)
-            {
-                int attackPower = attackCard.getAttack();
-                if (attackCard.isFlyable())
-                {
-                    scoreManager.addEnemyPoint(attackPower);
-                }
-                else
-                {
-                    for (int j = 0; j <= 3; j++)
-                    {
-
-                    }
-                }
+            Card card = board.getCard(i, attacker);
+            if (card != null){
+                Card enemyCard = board.getCard(i, defender);
+                card.attack(attacker, i, scoreManager, enemyCard);
             }
         }
     }

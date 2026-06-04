@@ -6,7 +6,7 @@ import Card.Obstacles.Rock;
 
 import java.util.Random;
 
-public abstract class Card
+public abstract class Card implements Attacker
 {
     private String _nom;
     private int _healthPoint;
@@ -64,8 +64,4 @@ public abstract class Card
         return 0;
     }
 
-    public boolean isFlyable()
-    {
-        return false;
-    }
 }
