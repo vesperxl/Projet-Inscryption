@@ -14,7 +14,7 @@ public class Player {
 
     }
 
-    public void draw(){
+    public void draw() throws IllegalStateException{
         _hand.draw(_deck);
     }
 
@@ -23,4 +23,4 @@ public class Player {
     }
 
 
-}
+    }
