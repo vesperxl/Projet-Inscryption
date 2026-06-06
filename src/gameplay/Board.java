@@ -92,6 +92,17 @@ public class    Board {
         }
     }
 
+    public void removeCard(int index, Player player)
+    {
+        if (player == this._player){
+            this._playerLine[index] = null;
+        }
+        else{
+            this._enemyLine[index]= null;
+        }
+    }
+}
+
     public Optional<Card>[] getPlayerLine(){
         return _playerLine.clone();
     }

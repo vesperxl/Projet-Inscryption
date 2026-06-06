@@ -61,9 +61,18 @@ public class Game {
         hasDraw = false;
    }
 
-   public void sacrifice(Card card)
+   public void sacrifice(int index)
    {
+       _player.addBloodStock();
+       _board.getCard(index,_player);
+       _board.removeCard(index, _player);
+   }
 
+   public void killCard(int index)
+   {
+       _player.addBoneStock();
+       _board.getCard(index,_player);
+       _board.removeCard(index, _player);
    }
 
 
