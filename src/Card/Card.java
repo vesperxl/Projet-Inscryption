@@ -64,4 +64,20 @@ public abstract class Card implements Attacker
         return 0;
     }
 
+    public String displayHp(){
+        return "PV : 1";
+
+    }
+
+    public String displayAttack(){
+        return "";
+    }
+
+    public String displaySigil(){
+        return "";
+    }
+
+
+
+
 }

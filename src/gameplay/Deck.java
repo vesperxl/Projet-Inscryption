@@ -18,7 +18,7 @@ public class Deck {
 
 
         Random rdm = new Random();
-        int nbEcureuil = rdm.nextInt(4) + 8;
+            int nbEcureuil = rdm.nextInt(4) + 9;
 
         for(int i = 0; i < nbEcureuil;i++){
             deck._cards.push(new Squirrel());

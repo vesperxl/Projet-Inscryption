@@ -3,6 +3,7 @@ package gameplay;
 import Card.Card;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Hand {
 
@@ -32,6 +33,17 @@ public class Hand {
     public boolean containsCard(Card card){
         return _handCards.contains(card);
     }
+
+    public Optional<Card> getCard(int index) {
+
+        if (index < 0 || index >= _handCards.size()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(this._handCards.get(index));
+    }
+
+
 
 
 }

@@ -1,74 +1,75 @@
 package gameplay;
 
 import Card.Card;
+import java.util.Optional;
 
-public class Board {
-    private Card[] _enemyLine;
-    private Card[] _playerLine;
-    private Card[] _enemyIntentions;
+public class    Board {
+
+    private Optional<Card>[] _enemyLine;
+    private Optional<Card>[] _playerLine;
+    private Optional<Card>[] _enemyIntentions;
     private Player _player;
 
 
-
-
     public Board(Player player){
-        this._enemyLine = new Card[4];
-        this._playerLine = new Card[4];
-        this._enemyIntentions = new Card[4];
+        this._enemyLine = new Optional[4];
+        this._playerLine = new Optional[4];
+        this._enemyIntentions = new Optional[4];
         this._player = player;
+
+
+        for(int i = 0; i < 4; i++){
+            this._enemyLine[i] = Optional.empty();
+            this._playerLine[i] = Optional.empty();
+            this._enemyIntentions[i] = Optional.empty();
+        }
     }
 
     public boolean placeEnemyIntention(Card card, int index){
         index--;
 
-
         if(index < 0 || index > 3){
             return false;
         }
 
-        if(this._enemyIntentions[index] != null){
+        if(this._enemyIntentions[index].isPresent()){
             return false;
         }
 
-        this._enemyIntentions[index] = card;
+
+        this._enemyIntentions[index] = Optional.of(card);
 
         return true;
-
     }
 
-    public boolean placePlayerCard(Card card, int index){
+    public boolean placeCard(Card card, int index, Player j){
         index--;
 
         if(index < 0 || index > 3){
             return false;
         }
 
-        if(this._playerLine[index] != null){
-            return false;
+        if(j == _player)
+        {
+            if(this._playerLine[index].isPresent())
+            {
+                return false;
+            }
+            this._playerLine[index] = Optional.of(card);
+            return true;
         }
-
-        this._playerLine[index] = card;
-
-        return true;
+        else
+        {
+            if(this._enemyLine[index].isPresent())
+            {
+                return false;
+            }
+            this._enemyLine[index] = Optional.of(card);
+            return true;
+        }
     }
 
-    public boolean placeEnemyCard(Card card, int index){
-        index--;
-
-        if(index < 0 || index > 3){
-            return false;
-        }
-
-        if(this._enemyLine[index] != null){
-            return false;
-        }
-
-        this._enemyLine[index] = card;
-
-        return true;
-    }
-
-    public Card getCard(int index, Player player)
+    public Optional<Card> getCard(int index, Player player)
     {
         if (player == this._player){
             return this._playerLine[index];
@@ -79,13 +80,27 @@ public class Board {
     }
 
     public void moveEnemyIntention(){
-        for(int i = 0;i < 4; i++){
-            if (this._enemyIntentions[i] != null && this._enemyLine[i] == null) {
+        for(int i = 0; i < 4; i++){
+
+            if (this._enemyIntentions[i].isPresent() && this._enemyLine[i].isEmpty()) {
+
 
                 this._enemyLine[i] = this._enemyIntentions[i];
 
-                this._enemyLine[i] = null;
+                this._enemyIntentions[i] = Optional.empty();
             }
         }
+    }
+
+    public Optional<Card>[] getPlayerLine(){
+        return _playerLine.clone();
+    }
+
+    public Optional<Card>[] getEnemyLine(){
+        return _enemyLine.clone();
+    }
+
+    public Optional<Card>[] getEnemyIntentionsLine(){
+        return _enemyIntentions.clone();
     }
 }

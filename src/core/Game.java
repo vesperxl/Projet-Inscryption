@@ -1,7 +1,11 @@
+package core;
+
 import Card.Card;
 import gameplay.Board;
 import gameplay.Player;
 import gameplay.ScoreManager;
+
+import java.util.Optional;
 
 public class Game {
 
@@ -9,24 +13,33 @@ public class Game {
     private Player _player;
     private Player _ennemy;
     private ScoreManager _score;
-    private boolean hasPlayed;
+    private boolean hasDraw;
 
 
     public Game(){
-        _board = new Board(_player);
         _player = new Player();
+        _ennemy = new Player();
+        _board = new Board(_player);
         _score = new ScoreManager(_player);
     }
 
-   public boolean placePlayerCard(Card card, int index){
+    public boolean placeCard(Player currentPlayer, int indexHand, int indexBoard) {
 
-        if(!_player.getHand().containsCard(card)){
+        Optional<Card> card = currentPlayer.getHand().getCard(indexHand);
+
+        if (card.isEmpty()){
             return false;
         }
 
-        _player.getHand().retire(index);
-        return _board.placePlayerCard(card,index);
-   }
+        boolean success = _board.placeCard(card.get(), indexBoard, currentPlayer);
+
+        if (success) {
+            currentPlayer.getHand().retire(indexHand);
+            return true;
+        }
+
+        return false;
+    }
 
    public Board getPlateau(){
         return _board;
@@ -36,22 +49,24 @@ public class Game {
         return _player;
    }
 
+
+
    public void draw(Player player) throws IllegalStateException{
 
-        if(hasPlayed){
+        if(hasDraw){
             throw new IllegalStateException("Vous avez déjà joué(e) ce tour !");
         }
 
         player.draw();
+        hasDraw = false;
    }
-
-
-
 
    public void sacrifice(Card card)
    {
 
    }
+
+
 
 
 }

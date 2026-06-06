@@ -19,6 +19,12 @@ public class Sparrow extends AnimalsCard{
     {
         Battle.flyableAttack(attacker, index, this.getAttack(), scoreManager, card);
     }
+
+    @Override
+    public String displaySigil(){
+        return "Volant";
+    }
+
 }
 
 
