@@ -16,7 +16,7 @@ public class Player {
 
     }
 
-    public void draw() throws IllegalStateException{
+    public void draw() {
         _hand.draw(_deck);
     }
 
@@ -49,13 +49,14 @@ public class Player {
         _boneStock -= quantity;
 
 
-
-
-
     }
 
     public int getBoneStock()
     {
         return  _boneStock;
+    }
+
+    public Deck getDeck(){
+        return _deck;
     }
 }

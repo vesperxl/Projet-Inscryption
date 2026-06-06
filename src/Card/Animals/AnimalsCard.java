@@ -39,4 +39,16 @@ public abstract class AnimalsCard extends Card
         return "Att: " + getAttack();
     }
 
+    @Override
+    public int getBlood(){
+        return _blood;
+    }
+
+    @Override
+    public int getBone(){
+        return _bone;
+    }
+
+
+
 }

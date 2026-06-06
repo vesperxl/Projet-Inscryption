@@ -65,7 +65,7 @@ public abstract class Card implements Attacker
     }
 
     public String displayHp(){
-        return "PV : 1";
+        return "PV : " + this.get_healthPoint();
 
     }
 
@@ -77,6 +77,9 @@ public abstract class Card implements Attacker
         return "";
     }
 
+    public abstract int getBlood();
+
+    public abstract int getBone();
 
 
 

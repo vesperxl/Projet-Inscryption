@@ -19,4 +19,14 @@ public abstract class ObstaclesCard extends Card {
     {
 
     }
+
+    @Override
+    public int getBone(){
+        return 0;
+    }
+
+    @Override
+    public int getBlood(){
+        return 0;
+    }
 }

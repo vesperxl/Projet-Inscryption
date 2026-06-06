@@ -47,11 +47,17 @@ public class Deck {
 
     }
 
-    public Card draw() throws IllegalStateException{
-        if(_cards.isEmpty()){
-            throw new IllegalStateException("Plus de carte dans le deck !");
-        }
+    public Card draw(){
+
         return this._cards.pop();
+    }
+
+    public int getSizeDeck(){
+        return _cards.size();
+    }
+
+    public boolean isEmpty(){
+        return this._cards.isEmpty();
     }
 
 
