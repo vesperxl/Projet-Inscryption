@@ -7,6 +7,7 @@ import gameplay.Player;
 import gameplay.ScoreManager;
 
 import java.lang.module.FindException;
+import java.util.Optional;
 
 public class Sparrow extends AnimalsCard{
     public Sparrow()
@@ -15,7 +16,7 @@ public class Sparrow extends AnimalsCard{
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager,  Card card)
+    public void attack(Player attacker, int index, ScoreManager scoreManager,  Optional<Card> card)
     {
         Battle.flyableAttack(attacker, index, this.getAttack(), scoreManager, card);
     }

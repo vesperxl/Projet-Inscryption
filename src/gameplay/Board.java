@@ -3,7 +3,7 @@ package gameplay;
 import Card.Card;
 import java.util.Optional;
 
-public class    Board {
+public class Board {
 
     private Optional<Card>[] _enemyLine;
     private Optional<Card>[] _playerLine;
@@ -101,7 +101,7 @@ public class    Board {
             this._enemyLine[index]= null;
         }
     }
-}
+
 
     public Optional<Card>[] getPlayerLine(){
         return _playerLine.clone();

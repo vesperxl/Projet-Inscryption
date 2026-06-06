@@ -6,6 +6,8 @@ import gameplay.Board;
 import gameplay.Player;
 import gameplay.ScoreManager;
 
+import java.util.Optional;
+
 public class Raven extends AnimalsCard{
     public Raven()
     {
@@ -14,7 +16,7 @@ public class Raven extends AnimalsCard{
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager,  Card card)
+    public void attack(Player attacker, int index, ScoreManager scoreManager,  Optional<Card> card)
     {
         Battle.flyableAttack(attacker, index, this.getAttack(), scoreManager, card);
     }

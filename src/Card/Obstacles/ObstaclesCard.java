@@ -5,6 +5,8 @@ import gameplay.Battle;
 import gameplay.Player;
 import gameplay.ScoreManager;
 
+import java.util.Optional;
+
 public abstract class ObstaclesCard extends Card {
 
 
@@ -13,7 +15,7 @@ public abstract class ObstaclesCard extends Card {
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager, Card card)
+    public void attack(Player attacker, int index, ScoreManager scoreManager, Optional<Card> card)
     {
 
     }
