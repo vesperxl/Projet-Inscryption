@@ -1,5 +1,6 @@
 package gameplay;
 
+import Card.Animals.Attacker;
 import Card.Card;
 
 
@@ -11,10 +12,16 @@ public class Battle
 
     public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card, Board board)
     {
-        // verifie si l'optional nest pas null
         if(card.isPresent()){
 
-            // sort la carte de l'optional
+            if ( board.getCard(index, attacker).get().hasPower("Stinky")) {
+                attack -= 1;
+                if (attack < 0)
+                {
+                    attack= 0;
+                }
+            }
+
             Card actualCard = card.get();
 
             int attackDiff = attack;
@@ -29,6 +36,11 @@ public class Battle
 
                     Card intentionCard = board.getCard(index,Side.INTENTION).get();
                     intentionCard.takeDamage(attackDiff);
+                }
+
+                if (card.get().hasPower("Sharp Spikes"))
+                {
+                   board.getCard(index, attacker).get().takeDamage(1);
                 }
 
             }

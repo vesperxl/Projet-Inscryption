@@ -1,12 +1,14 @@
 package Card;
 
 import Card.Animals.*;
+import Card.Animals.Power.Power;
 import Card.Obstacles.Fir;
 import Card.Obstacles.Rock;
 import gameplay.Board;
 import gameplay.Player;
 import gameplay.Side;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -14,6 +16,7 @@ public abstract class Card implements Attacker
 {
     private String _nom;
     private int _healthPoint;
+    private ArrayList<Power> _powers;
 
     public Card(String name, int hp){
         this._nom = name;
@@ -96,6 +99,24 @@ public abstract class Card implements Attacker
 
     }
 
+    public boolean hasPower(String powerName) {
+        for (int i = 0; i < this._powers.size(); i++) {
+            if (this._powers.get(i).getName().equals(powerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+
+    public void addPower(Power p) {
+        if (!this.hasPower(p.getName())) {
+            this._powers.add(p);
+        }
+    }
+
+    public void modifAttack(int modif){
+
+    }
 
 }

@@ -19,6 +19,10 @@ public abstract class AnimalsCard extends Card
         _bone = bone;
     }
 
+    public void modifAttackPPP(int modif){
+        _attack += modif;
+    }
+
     @Override
     public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card,Board board)
     {
@@ -53,8 +57,10 @@ public abstract class AnimalsCard extends Card
 
         if(card.isPresent()){
             player.addBloodStock();
-            board.removeCard(index,Side.PLAYER);
             player.addBoneStock();
+            if (!this.hasPower("Many Lives")) {
+                board.removeCard(index, Side.PLAYER);
+            }
             return true;
         }
 
