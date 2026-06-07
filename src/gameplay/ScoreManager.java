@@ -9,8 +9,8 @@ public class ScoreManager {
         this._player = player;
     }
 
-    public void addPoint(int points, Player player){
-        if (player == this._player){
+    public void addPoint(int points, Side side){
+        if (side == Side.PLAYER){
             this._score += points;
         }
         else{

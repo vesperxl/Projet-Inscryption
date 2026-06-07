@@ -1,18 +1,14 @@
 package gameplay;
 
 import Card.Card;
-import Card.Obstacles.Fir;
-import Card.Obstacles.Rock;
 
 
-import java.sql.SQLClientInfoException;
 import java.util.Optional;
 import java.util.Random;
 
 public class Battle
 {
-    private Board board;
-    private ScoreManager scoreManager;
+    private Board _board;
 
     private void initialize (){
         Random rand = new Random();
@@ -28,7 +24,7 @@ public class Battle
         }
     }
 
-    public static void basicAttack(Player attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
+    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
     {
         // verifie si l'optional nest pas null
         if(card.isPresent()){
@@ -77,34 +73,43 @@ public class Battle
 
     }
 
-    public static void flyableAttack(Player attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
+    public static void flyableAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
     {
         scoreManager.addPoint(attack, attacker);
     }
 
-    private void attack(Player attacker, Player defender)
+    private void attack(Side attacker, Side defender, ScoreManager score, Player player)
     {
         for (int i = 0; i <= 3; i++)
         {
-            Optional<Card> card = board.getCard(i, attacker);
+            Optional<Card> card = _board.getCard(i, attacker);
             if (card.isPresent()){
-                Optional<Card> enemyCard = board.getCard(i, defender);
-                card.get().attack(attacker, i, scoreManager, enemyCard);
+                Optional<Card> enemyCard = _board.getCard(i, defender);
+                card.get().attack(attacker, i, score, enemyCard);
+
+                if(enemyCard.isPresent() && enemyCard.get().get_healthPoint() <= 0){
+                    killCard(i,defender,player);
+                }
             }
         }
 
-        //Ton ancien code pour que tu compares
-   /*
-        for (int i = 0; i <= 3; i++)
-        {
-            Card card = board.getCard(i, attacker);
-            if (card != null){
-                Card enemyCard = board.getCard(i, defender);
-                card.attack(attacker, i, scoreManager, enemyCard);
-            }
-        }
+    }
 
-         */
+
+    public boolean killCard(int index, Side side, Player player)
+    {
+        Optional<Card> card = _board.getCard(index,side);
+
+        if(card.isPresent()){
+
+            _board.removeCard(index,side);
+
+            if(side == Side.PLAYER){
+                player.addBoneStock();
+            }
+            return true;
+        }
+        return false;
     }
 
 }

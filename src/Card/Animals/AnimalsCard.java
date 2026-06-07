@@ -1,10 +1,7 @@
 package Card.Animals;
 
 import Card.Card;
-import gameplay.Battle;
-import gameplay.Board;
-import gameplay.Player;
-import gameplay.ScoreManager;
+import gameplay.*;
 
 import java.util.Optional;
 
@@ -23,7 +20,7 @@ public abstract class AnimalsCard extends Card
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager,  Optional<Card> card)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card)
     {
         Battle.basicAttack(attacker, index, _attack, scoreManager, card);
     }

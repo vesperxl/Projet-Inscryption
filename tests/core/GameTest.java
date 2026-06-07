@@ -4,19 +4,16 @@ import Card.Animals.Coyote;
 import Card.Animals.Squirrel;
 import Card.Animals.Wolf;
 import gameplay.Player;
+import gameplay.Side;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
-
 public class GameTest {
-
 
     @Test
     public void testDraw_Succes() {
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
-
 
         DrawStatus statut = engine.draw(testPlayer);
 
@@ -50,11 +47,9 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_InvalidIndex() {
-
         Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
 
-        PlaceStatus statut = engine.placeCard(testPlayer, 0, 5);
+        PlaceStatus statut = engine.placeCard(0, 5);
 
         assertEquals(PlaceStatus.INVALID_INDEX, statut);
     }
@@ -62,25 +57,22 @@ public class GameTest {
     @Test
     public void testPlaceCard_CardNotFound() {
         Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
 
-        PlaceStatus statut = engine.placeCard(testPlayer, 99, 0);
+        PlaceStatus statut = engine.placeCard(99, 0);
 
         assertEquals(PlaceStatus.CARD_NOT_FOUND, statut);
     }
-
 
     @Test
     public void testPlaceCard_NotEnoughBlood() {
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
 
-        engine.getBoard().removeCard(0, testPlayer);
+        engine.getBoard().removeCard(0, Side.PLAYER);
 
         testPlayer.getHand().addCard(new Wolf());
 
-
-        PlaceStatus statut = engine.placeCard(testPlayer, 4, 0);
+        PlaceStatus statut = engine.placeCard(4, 0);
 
         assertEquals(PlaceStatus.NOT_ENOUGH_BLOOD, statut);
     }
@@ -90,25 +82,24 @@ public class GameTest {
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
 
-        engine.getBoard().removeCard(0, testPlayer);
+        engine.getBoard().removeCard(0, Side.PLAYER);
         testPlayer.getHand().addCard(new Coyote());
 
-        PlaceStatus statut = engine.placeCard(testPlayer, 4, 0);
+        PlaceStatus statut = engine.placeCard(4, 0);
 
-        assertEquals("Le joueur ne devrait pas pouvoir poser la carte sans os.", PlaceStatus.NOT_ENOUGH_BONES, statut);
+        assertEquals(PlaceStatus.NOT_ENOUGH_BONES, statut);
     }
 
     @Test
     public void testPlaceCard_Succes() {
-
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
 
-        engine.getBoard().removeCard(0, testPlayer);
+        engine.getBoard().removeCard(0, Side.PLAYER);
 
         testPlayer.getHand().addCard(new Squirrel());
 
-        PlaceStatus statut = engine.placeCard(testPlayer, 4, 0);
+        PlaceStatus statut = engine.placeCard(4, 0);
 
         assertEquals(PlaceStatus.SUCCESS, statut);
 
@@ -120,51 +111,46 @@ public class GameTest {
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
 
-
-        engine.getBoard().removeCard(0, testPlayer);
-        engine.getBoard().removeCard(1, testPlayer);
+        engine.getBoard().removeCard(0, Side.PLAYER);
+        engine.getBoard().removeCard(1, Side.PLAYER);
 
         testPlayer.getHand().addCard(new Squirrel());
         testPlayer.getHand().addCard(new Squirrel());
         testPlayer.getHand().addCard(new Wolf());
 
-        engine.placeCard(testPlayer, 4, 0);
-        engine.placeCard(testPlayer, 4, 1);
-
-
+        engine.placeCard(4, 0);
+        engine.placeCard(4, 1);
 
         engine.sacrifice(0);
         engine.sacrifice(1);
 
         assertEquals(2, testPlayer.getBloodStock());
 
-        PlaceStatus statut = engine.placeCard(testPlayer, 4, 0);
+        PlaceStatus statut = engine.placeCard(4, 0);
 
         assertEquals(PlaceStatus.SUCCESS, statut);
         assertEquals(0, testPlayer.getBloodStock());
     }
-
 
     @Test
     public void testPlaceCard_SuccesWithBones() {
         Game engine = new Game();
         Player testPlayer = engine.getPlayer();
 
-        engine.getBoard().removeCard(0, testPlayer);
+        engine.getBoard().removeCard(0, Side.PLAYER);
 
         testPlayer.getHand().addCard(new Coyote());
 
         for (int i = 0; i < 4; i++) {
             testPlayer.getHand().addCard(new Squirrel());
-            engine.placeCard(testPlayer, 5, 0);
+            engine.placeCard(5, 0);
 
-             engine.sacrifice(0);
+            engine.sacrifice(0);
         }
 
         assertEquals(4, testPlayer.getBoneStock());
 
-
-        PlaceStatus statut = engine.placeCard(testPlayer, 4, 0);
+        PlaceStatus statut = engine.placeCard(4, 0);
 
         assertEquals(PlaceStatus.SUCCESS, statut);
         assertEquals(0, testPlayer.getBoneStock());

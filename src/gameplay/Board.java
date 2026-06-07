@@ -8,15 +8,13 @@ public class Board {
     private Optional<Card>[] _enemyLine;
     private Optional<Card>[] _playerLine;
     private Optional<Card>[] _enemyIntentions;
-    private Player _player;
 
 
-    public Board(Player player){
+
+    public Board(){
         this._enemyLine = new Optional[4];
         this._playerLine = new Optional[4];
         this._enemyIntentions = new Optional[4];
-        this._player = player;
-
 
         for(int i = 0; i < 4; i++){
             this._enemyLine[i] = Optional.empty();
@@ -26,7 +24,6 @@ public class Board {
     }
 
     public boolean placeEnemyIntention(Card card, int index){
-        index--;
 
         if(index < 0 || index > 3){
             return false;
@@ -42,18 +39,20 @@ public class Board {
         return true;
     }
 
-    public boolean placeCard(Card card, int index, Player j){
+    public boolean placeCard(Card card, int index, Side side){
 
         if(index < 0 || index > 3){
             return false;
         }
 
-        if(j == _player)
+        if(side == Side.PLAYER)
         {
             if(this._playerLine[index].isPresent())
             {
                 return false;
             }
+
+
             this._playerLine[index] = Optional.of(card);
             return true;
         }
@@ -68,9 +67,9 @@ public class Board {
         }
     }
 
-    public Optional<Card> getCard(int index, Player player)
+    public Optional<Card> getCard(int index, Side side)
     {
-        if (player == this._player){
+        if (side == Side.PLAYER){
             return this._playerLine[index];
         }
         else{
@@ -91,9 +90,9 @@ public class Board {
         }
     }
 
-    public void removeCard(int index, Player player)
+    public void removeCard(int index, Side side)
     {
-        if (player == this._player){
+        if (side == Side.PLAYER){
             this._playerLine[index] = Optional.empty();
         }
         else{
