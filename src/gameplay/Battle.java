@@ -1,11 +1,9 @@
 package gameplay;
 
-import Card.Animals.Attacker;
 import Card.Card;
 
 
 import java.util.Optional;
-import java.util.Random;
 
 public class Battle
 {
@@ -15,10 +13,10 @@ public class Battle
         if(card.isPresent()){
 
             if ( board.getCard(index, attacker).get().hasPower("Stinky")) {
-                attack -= 1;
-                if (attack < 0)
+                card.get().modifAttack(-1);
+                if (card.get().getAttack() < 0)
                 {
-                    attack= 0;
+                    card.get().setAttack(0);
                 }
             }
 

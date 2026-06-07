@@ -1,8 +1,6 @@
-package Card.Animals;
+package Card;
 
-import Card.Card;
 import gameplay.Board;
-import gameplay.Player;
 import gameplay.ScoreManager;
 import gameplay.Side;
 

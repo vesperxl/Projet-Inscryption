@@ -1,7 +1,12 @@
 @startuml
 
 package Cards {
-    abstract class Card implements Card.Animals.Attacker {
+
+    interface Attacker
+    {
+        + attack(Player attacker, int index, ScoreManager scoreManager, Card card)
+    }
+    abstract class Card implements Attacker {
         - String _nom
         - int _healthPoint
 
@@ -14,10 +19,39 @@ package Cards {
         + int getAttack()
     }
 
-    package Animals {
-        interface Attacker {
-            + attack(Player attacker, int index, ScoreManager scoreManager, Card card)
+    package Powers
+    {
+        interface Power
+        {
         }
+
+        class ContactKiller implements Power
+        {
+        }
+
+        class Growth implements Power
+        {
+        }
+
+        class MultiLives implements Power
+        {
+        }
+
+        class SharpSpikes implements Power
+        {
+        }
+
+        class Sprinter implements Power
+        {
+        }
+
+        class Stinky implements Power
+        {
+        }
+    }
+
+    package Animals {
+
 
         abstract class AnimalsCard {
             - int _attack
@@ -68,6 +102,21 @@ package Cards {
         class Bug extends AnimalsCard {
             + Bug()
         }
+
+        class Moose extends AnimalsCard
+        {
+            + Moose()
+        }
+
+        class Viper extends AnimalsCard
+        {
+            + Viper()
+        }
+
+        class Porcupine extends AnimalsCard
+        {
+            + Porcupine()
+        }
     }
 
     package Obstacles {
@@ -88,7 +137,11 @@ package Cards {
 
 package Display {
     class Display {
-        + static start()
+        + {static} start(): void
+        + {static} DisplayBoard(engine: Game): void
+        + {static} constructDeck(index: int, engine: Game): void
+        + {static} DisplayLine(line: Optional<Card>[], nbLine: int): void
+        + {static} constructLineCard(line: Optional<Card>[], index: int, nbLine: int): void
     }
 }
 
@@ -156,18 +209,66 @@ package gameplay {
     }
 }
 
+package Core
+{
+class GameDisplay
+{
+    - _playerWins: int
+    - _enemyWins: int
+    - _matchNumber: int
+
+    + launchGame(): void
+    + playerMenu(currentGame: Game): void
+    - clearConsole(): void
+}
+
 class Game {
-    - Board _board
-    - Player _player
+    - _hasDraw: boolean
+    - _turnCounter: int
 
     + Game()
-    + boolean placePlayerCard(Card card, int index)
-    + sacrifice(Card card)
+    + generateInitialObstacle(): void
+    + placeCard(indexHand: int, indexBoard: int): PlaceStatus
+    + getBoard(): Board
+    + getPlayer(): Player
+    + draw(player: Player): DrawStatus
+    + sacrifice(index: int): boolean
+    + getScore(): ScoreManager
+    + planOpponentNextTurn(): void
+    + isGameOver(): boolean
+    + playerWin(): boolean
+    + getTurnCounter(): int
+    + startNewTurn(): void
+    + caseTrad(input: String): int
+    + executeCombatPhase(attacker: Side, defender: Side, defenderPlayer: Player): void
+    + getEnemy(): Player
 }
+
+enum PlaceStatus {
+        SUCCESS
+        NOT_ENOUGH_BLOOD
+        NOT_ENOUGH_BONES
+        CELL_OCCUPIED
+        CARD_NOT_FOUND
+        INVALID_INDEX
+    }
+
+ enum DrawStatus {
+         SUCCESS
+         ALREADY_DRAWN
+         EMPTY_DECK
+     }
+}
+
+
+
+
 
 class Main {
     + static main(String[] args)
 }
+
+
 
 AnimalsCard <-up- Card
 ObstaclesCard <-up- Card

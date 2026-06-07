@@ -6,10 +6,8 @@ import Card.Obstacles.Fir;
 import Card.Obstacles.Rock;
 import gameplay.Board;
 import gameplay.Player;
-import gameplay.Side;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Random;
 
 public abstract class Card implements Attacker
@@ -115,8 +113,11 @@ public abstract class Card implements Attacker
         }
     }
 
-    public void modifAttack(int modif){
+    public void modifAttack(int modif)
+    {
+    }
 
+    public void setAttack(int modif){
     }
 
 }

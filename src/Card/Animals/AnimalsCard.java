@@ -19,9 +19,7 @@ public abstract class AnimalsCard extends Card
         _bone = bone;
     }
 
-    public void modifAttackPPP(int modif){
-        _attack += modif;
-    }
+
 
     @Override
     public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card,Board board)
@@ -67,6 +65,13 @@ public abstract class AnimalsCard extends Card
         return false;
     }
 
+    @Override
+    public void modifAttack(int modif){
+        _attack += modif;
+    }
 
-
+    @Override
+    public void setAttack(int modif){
+        _attack = modif;
+    }
 }
