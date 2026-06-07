@@ -186,8 +186,4 @@ public class GameDisplay
             // Ne rien faire en cas d'erreur
         }
     }
-
-
-
-
 }
