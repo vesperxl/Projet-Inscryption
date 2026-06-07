@@ -2,10 +2,7 @@ package core;
 
 import Card.Animals.*;
 import Card.Card;
-import gameplay.Board;
-import gameplay.Player;
-import gameplay.ScoreManager;
-import gameplay.Side;
+import gameplay.*;
 
 import java.util.Optional;
 import java.util.Random;
@@ -18,14 +15,16 @@ public class Game {
     private ScoreManager _score;
     private boolean _hasDraw;
     private int _turnCounter;
+    private Battle _battlePhase;
 
 
     public Game(){
         _player = new Player();
         _ennemy = new Player();
         _board = new Board();
-        _score = new ScoreManager(_player);
-        _turnCounter = 1;
+        _score = new ScoreManager();
+        _turnCounter = 0;
+        _battlePhase = new Battle();
 
         generateInitialObstacle();
     }
@@ -127,28 +126,14 @@ public class Game {
         return DrawStatus.SUCCESS;
    }
 
-       public boolean sacrifice(int index)
-       {
-            Optional<Card> card = _board.getCard(index,Side.PLAYER);
+    public boolean sacrifice(int index){
+        Optional<Card> card = _board.getCard(index,Side.PLAYER);
+        if(card.isPresent()){
+            return card.get().sacrifice(_player,_board,index);
+        }
+        return false;
 
-            if(card.isPresent()){
-                _player.addBloodStock();
-                _board.removeCard(index,Side.PLAYER);
-               _player.addBoneStock();
-                return true;
-            }
-            return false;
-
-
-
-            /* ton code
-           _player.addBloodStock();
-           _board.getCard(index,_player);
-           _board.removeCard(index, _player);
-           */
-
-       }
-
+    }
 
 
    public ScoreManager getScore(){
@@ -190,9 +175,60 @@ public class Game {
                 _board.placeEnemyIntention(new Bug(), 4);
 
         }
+
+
+
    }
 
 
+   public boolean isGameOver(){
+        return this._score.isGameOver();
+   }
+
+   public boolean playerWin(){
+        return this._score.playerVictory();
+   }
+
+
+   public int getTurnCounter(){
+        return _turnCounter;
+   }
+
+
+   public void startNewTurn(){
+        getPlayer().resetBlood();
+        _hasDraw = false;
+        _turnCounter++;
+   }
+
+    public int caseTrad(String input){
+        if (input == null || input.length() != 2){
+            return -1;
+        }
+
+        if(input.charAt(0) != 'B'){
+            return -1;
+        }
+
+
+        int index = input.charAt(1) - '0';
+        index--;
+
+        if (index >= 0 && index < 4) {
+            return index;
+        } else {
+            return -1;
+        }
+
+    }
+
+    public void executeCombatPhase(Side attacker, Side defender, Player defenderPlayer){
+            _battlePhase.attack(attacker, defender, _score,defenderPlayer,_board);
+    }
+
+    public Player getEnemy(){
+        return _ennemy;
+    }
 
 
 

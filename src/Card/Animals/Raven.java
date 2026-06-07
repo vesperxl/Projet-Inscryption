@@ -13,7 +13,7 @@ public class Raven extends AnimalsCard{
     }
 
     @Override
-    public void attack(Side attacker, int index, ScoreManager scoreManager,  Optional<Card> card)
+    public void attack(Side attacker, int index, ScoreManager scoreManager,  Optional<Card> card, Board board)
     {
         Battle.flyableAttack(attacker, index, this.getAttack(), scoreManager, card);
     }

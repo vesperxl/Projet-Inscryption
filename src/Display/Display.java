@@ -15,12 +15,7 @@ public class Display {
 
 
 
-    public void DisplayBoard(Game engine){
-
-
-        System.out.println("                           Partie 1");
-        System.out.println("                           Manche 1");
-
+    public static void DisplayBoard(Game engine){
 
         DisplayLine(engine.getBoard().getEnemyIntentionsLine(), 0);
 
@@ -34,36 +29,89 @@ public class Display {
         DisplayLine(engine.getBoard().getPlayerLine(), 2);
         System.out.println("                           Score: " + engine.getScore().getCurrentScore());
 
-        System.out.println("Your hand : ");
-        for(int i = 0 ;i < engine.getPlayer().getHand().getSize(); i++){
-            Card card = engine.getPlayer().getHand().getCard(i).get();
 
-            System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d%n",
-                    i + 1,
-                    card.get_nom(),
-                    card.get_healthPoint(),
-                    card.getAttack(),
-                    card.getBlood(),
-                    card.getBone()
-            );
+
+
+        System.out.println("                                                                           Pioche : ");
+        System.out.println("                                                                           *-----------*");
+        System.out.println("Your hand :                                                                |           |");
+
+        int nb = 5;
+        if(engine.getPlayer().getHand().getSize() > nb){
+            nb = engine.getPlayer().getHand().getSize();
+        }
+
+        for(int i = 0 ;i < nb; i++){
+
+            Optional<Card> optCard = engine.getPlayer().getHand().getCard(i);
+            if(optCard.isPresent()){
+                Card card = optCard.get();
+
+                System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d",
+                        i + 1,
+                        card.get_nom(),
+                        card.get_healthPoint(),
+                        card.getAttack(),
+                        card.getBlood(),
+                        card.getBone()
+                );
+
+                System.out.print("          ");
+
+
+
+            }else{
+                System.out.print("                                                                           ");
+            }
+
+            constructDeck(i,engine);
+
+
+
+
 
 
         }
 
-        System.out.println("Pioche : ");
+        /*System.out.println("Pioche : ");
         System.out.println("*-----------*");
         System.out.println("|           |");
         System.out.println("|           |");
         System.out.printf("|     %-6d|%n", engine.getPlayer().getDeck().getSizeDeck());
         System.out.println("|   cartes  |");
         System.out.println("|           |");
-        System.out.println("*-----------*");
+        System.out.println("*-----------*");*/
+
 
 
     }
 
+    public static void constructDeck(int index, Game engine){
+        switch(index){
+            case 0:
+                System.out.println("|           |");
+                break;
+            case 1:
+                System.out.printf("|     %-6d|%n", engine.getPlayer().getDeck().getSizeDeck());
+                break;
+            case 2:
+                System.out.println("|   cartes  |");
+                break;
+            case 3:
+                System.out.println("|           |");
+                break;
+            case 4:
+                System.out.println("*-----------*");
+                break;
+            default:
+                break;
 
-    public void DisplayLine(Optional<Card>[] line, int nbLine){
+        }
+
+    }
+
+
+    public static void DisplayLine(Optional<Card>[] line, int nbLine){
         for(int i = 0; i < 7;i++){
 
             constructLineCard(line,i,nbLine);
@@ -73,7 +121,7 @@ public class Display {
     }
 
 
-    public void constructLineCard(Optional<Card>[] line, int index, int nbLine) {
+    public static void constructLineCard(Optional<Card>[] line, int index, int nbLine) {
 
         if (index < 0 || index > 6) {
             System.out.print("Index out of range : " + index);
@@ -120,6 +168,8 @@ public class Display {
             }
         }
     }
+
+
 
 
 

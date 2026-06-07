@@ -20,9 +20,9 @@ public abstract class AnimalsCard extends Card
     }
 
     @Override
-    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card,Board board)
     {
-        Battle.basicAttack(attacker, index, _attack, scoreManager, card);
+        Battle.basicAttack(attacker, index, _attack, scoreManager, card, board);
     }
 
     @Override
@@ -44,6 +44,21 @@ public abstract class AnimalsCard extends Card
     @Override
     public int getBone(){
         return _bone;
+    }
+
+    @Override
+    public boolean sacrifice(Player player, Board board, int index){
+
+        Optional<Card> card = board.getCard(index, Side.PLAYER);
+
+        if(card.isPresent()){
+            player.addBloodStock();
+            board.removeCard(index,Side.PLAYER);
+            player.addBoneStock();
+            return true;
+        }
+
+        return false;
     }
 
 

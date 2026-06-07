@@ -39,6 +39,11 @@ public class Player {
         return  _bloodStock;
     }
 
+    public void resetBlood(){
+        _bloodStock = 0;
+    }
+
+
     public void addBoneStock()
     {
         _boneStock += 1;

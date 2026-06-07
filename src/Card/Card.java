@@ -3,7 +3,11 @@ package Card;
 import Card.Animals.*;
 import Card.Obstacles.Fir;
 import Card.Obstacles.Rock;
+import gameplay.Board;
+import gameplay.Player;
+import gameplay.Side;
 
+import java.util.Optional;
 import java.util.Random;
 
 public abstract class Card implements Attacker
@@ -80,6 +84,14 @@ public abstract class Card implements Attacker
     public abstract int getBlood();
 
     public abstract int getBone();
+
+
+    public boolean sacrifice(Player player, Board board, int index){
+
+        return false;
+
+
+    }
 
 
 

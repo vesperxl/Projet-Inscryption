@@ -72,8 +72,10 @@ public class Board {
         if (side == Side.PLAYER){
             return this._playerLine[index];
         }
-        else{
+        else if(side == Side.ENEMY){
             return this._enemyLine[index];
+        }else{
+            return this._enemyIntentions[index];
         }
     }
 

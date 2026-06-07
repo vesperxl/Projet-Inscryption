@@ -2,12 +2,8 @@ package gameplay;
 
 public class ScoreManager {
     private int _score = 0;
-    private Player _player;
 
 
-    public ScoreManager(Player player){
-        this._player = player;
-    }
 
     public void addPoint(int points, Side side){
         if (side == Side.PLAYER){
@@ -28,5 +24,9 @@ public class ScoreManager {
 
     public boolean enemyVictory(){
         return _score <= -5;
+    }
+
+    public boolean isGameOver(){
+        return playerVictory() || enemyVictory();
     }
 }

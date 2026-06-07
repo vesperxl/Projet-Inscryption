@@ -8,23 +8,8 @@ import java.util.Random;
 
 public class Battle
 {
-    private Board _board;
 
-    private void initialize (){
-        Random rand = new Random();
-
-        for (int i = 0; i <= 3; i++){
-
-            int chance = rand.nextInt(10);
-
-            if (chance == 0)
-            {
-                Card.getRandomObstacleCard();
-            }
-        }
-    }
-
-    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
+    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card, Board board)
     {
         // verifie si l'optional nest pas null
         if(card.isPresent()){
@@ -39,7 +24,13 @@ public class Battle
 
             if (attackDiff > 0){
                 actualCard.takeDamage(attack);
-                scoreManager.addPoint(attackDiff, attacker);
+
+                if(attacker == Side.PLAYER && board.getCard(index,Side.INTENTION).isPresent()){
+
+                    Card intentionCard = board.getCard(index,Side.INTENTION).get();
+                    intentionCard.takeDamage(attackDiff);
+                }
+
             }
             else {
 
@@ -78,17 +69,26 @@ public class Battle
         scoreManager.addPoint(attack, attacker);
     }
 
-    private void attack(Side attacker, Side defender, ScoreManager score, Player player)
+    public void attack(Side attacker, Side defender, ScoreManager score, Player defenderPlayer, Board board)
     {
         for (int i = 0; i <= 3; i++)
         {
-            Optional<Card> card = _board.getCard(i, attacker);
+            Optional<Card> card = board.getCard(i, attacker);
             if (card.isPresent()){
-                Optional<Card> enemyCard = _board.getCard(i, defender);
-                card.get().attack(attacker, i, score, enemyCard);
+                Optional<Card> enemyCard = board.getCard(i, defender);
+
+                card.get().attack(attacker, i, score, enemyCard, board);
 
                 if(enemyCard.isPresent() && enemyCard.get().get_healthPoint() <= 0){
-                    killCard(i,defender,player);
+                    killCard(i,defender,defenderPlayer,board);
+                }
+
+                if(attacker == Side.PLAYER){
+                    Optional<Card> enemyIntention = board.getCard(i, Side.INTENTION);
+                    if(enemyIntention.isPresent() && enemyIntention.get().get_healthPoint() <= 0){
+                        killCard(i, Side.INTENTION, defenderPlayer,board);
+                    }
+
                 }
             }
         }
@@ -96,16 +96,16 @@ public class Battle
     }
 
 
-    public boolean killCard(int index, Side side, Player player)
+    public boolean killCard(int index, Side side, Player defenderPlayer, Board board)
     {
-        Optional<Card> card = _board.getCard(index,side);
+        Optional<Card> card = board.getCard(index,side);
 
         if(card.isPresent()){
 
-            _board.removeCard(index,side);
+            board.removeCard(index,side);
 
             if(side == Side.PLAYER){
-                player.addBoneStock();
+                defenderPlayer.addBoneStock();
             }
             return true;
         }

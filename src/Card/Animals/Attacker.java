@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface Attacker
 {
-    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card);
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card, Board board);
 }
