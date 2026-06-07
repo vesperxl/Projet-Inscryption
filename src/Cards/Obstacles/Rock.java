@@ -1,4 +1,4 @@
-package Card.Obstacles;
+package Cards.Obstacles;
 
 public class Rock extends ObstaclesCard{
 

@@ -1,7 +1,7 @@
 package core;
 
-import Card.Animals.*;
-import Card.Card;
+import Cards.Animals.*;
+import Cards.Card;
 import gameplay.*;
 
 import java.util.Optional;

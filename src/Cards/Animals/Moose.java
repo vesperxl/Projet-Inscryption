@@ -1,6 +1,6 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Animals.Power.Sprinter;
+import Cards.Animals.Power.Sprinter;
 
 public class Moose extends AnimalsCard{
     public Moose() {

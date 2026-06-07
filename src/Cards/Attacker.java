@@ -1,4 +1,4 @@
-package Card;
+package Cards;
 
 import gameplay.Board;
 import gameplay.ScoreManager;

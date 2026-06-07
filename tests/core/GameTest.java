@@ -1,8 +1,8 @@
 package core;
 
-import Card.Animals.Coyote;
-import Card.Animals.Squirrel;
-import Card.Animals.Wolf;
+import Cards.Animals.Coyote;
+import Cards.Animals.Squirrel;
+import Cards.Animals.Wolf;
 import gameplay.Player;
 import gameplay.Side;
 import org.junit.Test;

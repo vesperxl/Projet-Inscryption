@@ -1,6 +1,6 @@
 package gameplay;
 
-import Card.Card;
+import Cards.Card;
 import java.util.Optional;
 
 public class Board {

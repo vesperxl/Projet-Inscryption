@@ -1,6 +1,6 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Animals.Power.SharpSpikes;
+import Cards.Animals.Power.SharpSpikes;
 
 public class Porcupine extends AnimalsCard{
     public Porcupine() {

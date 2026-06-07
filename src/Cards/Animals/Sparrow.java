@@ -1,9 +1,8 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Card;
+import Cards.Card;
 import gameplay.*;
 
-import java.lang.module.FindException;
 import java.util.Optional;
 
 public class Sparrow extends AnimalsCard{

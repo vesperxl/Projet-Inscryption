@@ -1,7 +1,6 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Animals.Power.MultiLives;
-import Card.Animals.Power.Sprinter;
+import Cards.Animals.Power.MultiLives;
 
 public class Cat extends AnimalsCard
 {

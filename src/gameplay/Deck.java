@@ -1,7 +1,7 @@
 package gameplay;
 
-import Card.Animals.Squirrel;
-import Card.Card;
+import Cards.Animals.Squirrel;
+import Cards.Card;
 
 import java.util.*;
 

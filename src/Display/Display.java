@@ -1,7 +1,7 @@
 package Display;
 
 
-import Card.Card;
+import Cards.Card;
 import core.Game;
 
 import java.util.Optional;

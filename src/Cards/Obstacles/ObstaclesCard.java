@@ -1,6 +1,6 @@
-package Card.Obstacles;
+package Cards.Obstacles;
 
-import Card.Card;
+import Cards.Card;
 import gameplay.*;
 
 import java.util.Optional;

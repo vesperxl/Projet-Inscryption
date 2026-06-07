@@ -1,4 +1,4 @@
-package Card.Animals;
+package Cards.Animals;
 
 public class Squirrel extends AnimalsCard
 {

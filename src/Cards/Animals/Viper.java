@@ -1,6 +1,6 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Animals.Power.ContactKiller;
+import Cards.Animals.Power.ContactKiller;
 
 public class Viper extends AnimalsCard{
     public Viper() {

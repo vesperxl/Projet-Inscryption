@@ -1,6 +1,6 @@
-package Card.Animals;
+package Cards.Animals;
 
-import Card.Card;
+import Cards.Card;
 import gameplay.*;
 
 import java.util.Optional;

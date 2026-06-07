@@ -1,9 +1,9 @@
-package Card;
+package Cards;
 
-import Card.Animals.*;
-import Card.Animals.Power.Power;
-import Card.Obstacles.Fir;
-import Card.Obstacles.Rock;
+import Cards.Animals.*;
+import Cards.Animals.Power.Power;
+import Cards.Obstacles.Fir;
+import Cards.Obstacles.Rock;
 import gameplay.Board;
 import gameplay.Player;
 
