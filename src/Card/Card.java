@@ -38,7 +38,7 @@ public abstract class Card implements Attacker
 
     public static Card getRandomAnimalCard(){
         Random rdm = new Random();
-        int choix = rdm.nextInt(10);
+        int choix = rdm.nextInt(13);
 
         switch(choix){
             case 0: return new Bug();
@@ -50,7 +50,10 @@ public abstract class Card implements Attacker
             case 6: return new Sparrow();
             case 7: return new Squirrel();
             case 8: return new Wolf();
-            default: return new WolfPup();
+            case 9: return new WolfPup();
+            case 10: return new Moose();
+            case 11: return new Porcupine();
+            default: return new Viper();
         }
 
     }
