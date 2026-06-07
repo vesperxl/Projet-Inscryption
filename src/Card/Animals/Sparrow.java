@@ -1,10 +1,7 @@
 package Card.Animals;
 
 import Card.Card;
-import gameplay.Battle;
-import gameplay.Board;
-import gameplay.Player;
-import gameplay.ScoreManager;
+import gameplay.*;
 
 import java.lang.module.FindException;
 import java.util.Optional;
@@ -16,7 +13,7 @@ public class Sparrow extends AnimalsCard{
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager,  Optional<Card> card)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card)
     {
         Battle.flyableAttack(attacker, index, this.getAttack(), scoreManager, card);
     }

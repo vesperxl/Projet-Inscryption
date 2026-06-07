@@ -4,6 +4,7 @@ import Card.Card;
 import gameplay.Battle;
 import gameplay.Player;
 import gameplay.ScoreManager;
+import gameplay.Side;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public abstract class ObstaclesCard extends Card {
     }
 
     @Override
-    public void attack(Player attacker, int index, ScoreManager scoreManager, Optional<Card> card)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card)
     {
 
     }

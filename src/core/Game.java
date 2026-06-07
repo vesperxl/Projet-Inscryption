@@ -1,9 +1,11 @@
 package core;
 
+import Card.Animals.*;
 import Card.Card;
 import gameplay.Board;
 import gameplay.Player;
 import gameplay.ScoreManager;
+import gameplay.Side;
 
 import java.util.Optional;
 import java.util.Random;
@@ -14,14 +16,16 @@ public class Game {
     private Player _player;
     private Player _ennemy;
     private ScoreManager _score;
-    private boolean hasDraw;
+    private boolean _hasDraw;
+    private int _turnCounter;
 
 
     public Game(){
         _player = new Player();
         _ennemy = new Player();
-        _board = new Board(_player);
+        _board = new Board();
         _score = new ScoreManager(_player);
+        _turnCounter = 1;
 
         generateInitialObstacle();
     }
@@ -34,25 +38,25 @@ public class Game {
         for (int i = 0; i < 4; i++) {
 
             if (rand.nextInt(100) < 10) {
-                if (_board.getCard(i, _ennemy).isEmpty()) {
+                if (_board.getCard(i, Side.ENEMY).isEmpty()) {
 
-                    _board.placeCard(Card.getRandomObstacleCard(), i, _ennemy);
+                    _board.placeCard(Card.getRandomObstacleCard(), i, Side.ENEMY);
                 }
             }
 
             if (rand.nextInt(100) < 10) {
-                if (_board.getCard(i, _player).isEmpty()) {
+                if (_board.getCard(i, Side.PLAYER).isEmpty()) {
 
-                    _board.placeCard(Card.getRandomObstacleCard(), i, _player);
+                    _board.placeCard(Card.getRandomObstacleCard(), i, Side.PLAYER);
                 }
             }
         }
 
     }
 
-        public PlaceStatus placeCard(Player currentPlayer, int indexHand, int indexBoard) {
+        public PlaceStatus placeCard(int indexHand, int indexBoard) {
 
-            Optional<Card> cardOpt = currentPlayer.getHand().getCard(indexHand);
+            Optional<Card> cardOpt = _player.getHand().getCard(indexHand);
             if (cardOpt.isEmpty()) {
                 return PlaceStatus.CARD_NOT_FOUND;
             }
@@ -63,30 +67,30 @@ public class Game {
             }
 
 
-            if (_board.getCard(indexBoard, currentPlayer).isPresent()) {
+            if (_board.getCard(indexBoard, Side.PLAYER).isPresent()) {
                 return PlaceStatus.CELL_OCCUPIED;
             }
 
             Card card = cardOpt.get();
 
 
-            if (currentPlayer.getBloodStock() < card.getBlood()) {
+            if (_player.getBloodStock() < card.getBlood()) {
                 return PlaceStatus.NOT_ENOUGH_BLOOD;
             }
 
-            if (currentPlayer.getBoneStock() < card.getBone()) {
+            if (_player.getBoneStock() < card.getBone()) {
                 return PlaceStatus.NOT_ENOUGH_BONES;
             }
 
 
-            boolean success = _board.placeCard(card, indexBoard, currentPlayer);
+            boolean success = _board.placeCard(card, indexBoard, Side.PLAYER);
 
             if (success) {
 
-                currentPlayer.removeBloodStock(card.getBlood());
-                currentPlayer.removeBoneStock(card.getBone());
+                _player.removeBloodStock(card.getBlood());
+                _player.removeBoneStock(card.getBone());
 
-                currentPlayer.getHand().retire(indexHand);
+                _player.getHand().retire(indexHand);
                 return PlaceStatus.SUCCESS;
             }
 
@@ -107,7 +111,7 @@ public class Game {
 
    public DrawStatus draw(Player player){
 
-        if(hasDraw){
+        if(_hasDraw){
             return DrawStatus.ALREADY_DRAWN;
         }
 
@@ -118,18 +122,18 @@ public class Game {
 
 
         player.draw();
-        hasDraw = true;
+        _hasDraw = true;
 
         return DrawStatus.SUCCESS;
    }
 
        public boolean sacrifice(int index)
        {
-            Optional<Card> card = _board.getCard(index,_player);
+            Optional<Card> card = _board.getCard(index,Side.PLAYER);
 
             if(card.isPresent()){
                 _player.addBloodStock();
-                _board.removeCard(index,_player);
+                _board.removeCard(index,Side.PLAYER);
                _player.addBoneStock();
                 return true;
             }
@@ -145,21 +149,47 @@ public class Game {
 
        }
 
-       public boolean killCard(int index)
-       {
-           Optional<Card> card = _board.getCard(index,_player);
 
-           if(card.isPresent()){
-
-               _board.removeCard(index,_player);
-               _player.addBoneStock();
-               return true;
-           }
-           return false;
-       }
 
    public ScoreManager getScore(){
         return _score;
+   }
+
+
+   public void planOpponentNextTurn(){
+        switch(this._turnCounter){
+            case 1:
+                _board.placeEnemyIntention(new Squirrel(), 2);
+                break;
+            case 2:
+                _board.placeEnemyIntention(new Ermine(), 1);
+                break;
+            case 3:
+                break;
+            case 4:
+                _board.placeEnemyIntention(new Cat(), 4);
+                _board.placeEnemyIntention(new WolfPup(), 3);
+                break;
+            case 5:
+                break;
+            case 6:
+                _board.placeEnemyIntention(new Sparrow(),1);
+                break;
+            case 7:
+                _board.placeEnemyIntention(new Wolf(), 2);
+                break;
+            case 8:
+                _board.placeEnemyIntention((new Squirrel()), 3);
+                break;
+            case 9:
+                break;
+            case 10 :
+                _board.placeEnemyIntention(new Grizzly(), 1);
+                break;
+            default:
+                _board.placeEnemyIntention(new Bug(), 4);
+
+        }
    }
 
 
