@@ -1,6 +1,6 @@
 package Cards.Animals;
 
-import Cards.Animals.Power.Growth;
+import Cards.Animals.Powers.Growth;
 
 public class WolfPup extends AnimalsCard
 {

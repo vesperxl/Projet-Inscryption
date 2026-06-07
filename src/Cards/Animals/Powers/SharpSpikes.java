@@ -1,4 +1,4 @@
-package Cards.Animals.Power;
+package Cards.Animals.Powers;
 
 public class SharpSpikes implements Power {
     @Override

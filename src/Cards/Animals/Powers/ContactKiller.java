@@ -1,4 +1,4 @@
-package Cards.Animals.Power;
+package Cards.Animals.Powers;
 
 public class ContactKiller implements Power{
     @Override

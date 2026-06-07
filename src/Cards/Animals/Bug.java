@@ -1,6 +1,6 @@
 package Cards.Animals;
 
-import Cards.Animals.Power.Stinky;
+import Cards.Animals.Powers.Stinky;
 
 public class Bug extends AnimalsCard
 {

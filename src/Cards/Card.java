@@ -1,7 +1,7 @@
 package Cards;
 
 import Cards.Animals.*;
-import Cards.Animals.Power.Power;
+import Cards.Animals.Powers.Power;
 import Cards.Obstacles.Fir;
 import Cards.Obstacles.Rock;
 import gameplay.Board;
