@@ -10,6 +10,8 @@ import gameplay.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
+ //test
+
 public abstract class Card implements Attacker
 {
     private String _nom;
