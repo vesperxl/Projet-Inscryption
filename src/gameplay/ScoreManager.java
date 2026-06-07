@@ -18,7 +18,7 @@ public class ScoreManager {
         }
     }
 
-    public int getScore(){
+    public int getCurrentScore(){
         return _score;
     }
 

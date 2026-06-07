@@ -21,13 +21,16 @@ public class Hand {
             }
         }
 
-    public void draw(Deck deck) throws IllegalStateException{
+    public void draw(Deck deck) {
         _handCards.add(deck.draw());
 
     }
 
     public void retire(int index){
-        this._handCards.remove(index);
+        if(index >= 0 && index < this._handCards.size()){
+            this._handCards.remove(index);
+        }
+
     }
 
     public boolean containsCard(Card card){
@@ -43,6 +46,14 @@ public class Hand {
         return Optional.of(this._handCards.get(index));
     }
 
+    public int getSize(){
+
+        return _handCards.size();
+    }
+
+    public void addCard(Card card){
+        this._handCards.add(card);
+    }
 
 
 

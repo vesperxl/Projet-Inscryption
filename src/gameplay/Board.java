@@ -43,7 +43,6 @@ public class Board {
     }
 
     public boolean placeCard(Card card, int index, Player j){
-        index--;
 
         if(index < 0 || index > 3){
             return false;

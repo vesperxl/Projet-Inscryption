@@ -1,8 +1,9 @@
+import core.Game;
+import Display.Display;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
-        System.out.println("Another challenger... It has been ages.");
+public class Main {
+    public static void main(String[] args) {
+
+
     }
 }
