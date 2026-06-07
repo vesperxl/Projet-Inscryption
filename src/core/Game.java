@@ -1,5 +1,6 @@
 package core;
 
+import Card.Animals.*;
 import Card.Card;
 import gameplay.Board;
 import gameplay.Player;
@@ -15,7 +16,8 @@ public class Game {
     private Player _player;
     private Player _ennemy;
     private ScoreManager _score;
-    private boolean hasDraw;
+    private boolean _hasDraw;
+    private int _turnCounter;
 
 
     public Game(){
@@ -23,6 +25,7 @@ public class Game {
         _ennemy = new Player();
         _board = new Board();
         _score = new ScoreManager(_player);
+        _turnCounter = 1;
 
         generateInitialObstacle();
     }
@@ -108,7 +111,7 @@ public class Game {
 
    public DrawStatus draw(Player player){
 
-        if(hasDraw){
+        if(_hasDraw){
             return DrawStatus.ALREADY_DRAWN;
         }
 
@@ -119,7 +122,7 @@ public class Game {
 
 
         player.draw();
-        hasDraw = true;
+        _hasDraw = true;
 
         return DrawStatus.SUCCESS;
    }
@@ -150,6 +153,43 @@ public class Game {
 
    public ScoreManager getScore(){
         return _score;
+   }
+
+
+   public void planOpponentNextTurn(){
+        switch(this._turnCounter){
+            case 1:
+                _board.placeEnemyIntention(new Squirrel(), 2);
+                break;
+            case 2:
+                _board.placeEnemyIntention(new Ermine(), 1);
+                break;
+            case 3:
+                break;
+            case 4:
+                _board.placeEnemyIntention(new Cat(), 4);
+                _board.placeEnemyIntention(new WolfPup(), 3);
+                break;
+            case 5:
+                break;
+            case 6:
+                _board.placeEnemyIntention(new Sparrow(),1);
+                break;
+            case 7:
+                _board.placeEnemyIntention(new Wolf(), 2);
+                break;
+            case 8:
+                _board.placeEnemyIntention((new Squirrel()), 3);
+                break;
+            case 9:
+                break;
+            case 10 :
+                _board.placeEnemyIntention(new Grizzly(), 1);
+                break;
+            default:
+                _board.placeEnemyIntention(new Bug(), 4);
+
+        }
    }
 
 
