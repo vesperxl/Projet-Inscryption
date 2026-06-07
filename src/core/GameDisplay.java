@@ -173,17 +173,11 @@ public class GameDisplay
 
     private void clearConsole() {
         try {
-
-
-
-
-
             for(int i = 0; i < 50; i++) {
                  System.out.println();
              }
 
         } catch (Exception e) {
-            // Ne rien faire en cas d'erreur
         }
     }
 }
