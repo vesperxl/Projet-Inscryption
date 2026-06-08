@@ -56,22 +56,22 @@ public abstract class AnimalsCard extends Card
 
         if(card.isPresent())
         {
-            boolean hasMultiLives = false;
 
-            for (int i = 0; i < card.get().getSizePower(); i++)
-            {
-                card.get().getPowers(i).multiLivesPower(player, board, index);
-                return true;
+            boolean survived = false;
+
+            for (int i = 0; i < this.getSizePower(); i++) {
+                if (this.getPowers(i).multiLivesPower(player, board, index)) {
+                    survived = true;
+                }
             }
 
-            if (!hasMultiLives) {
+            if (!survived) {
                 player.addBloodStock();
                 player.addBoneStock();
                 board.removeCard(index, Side.PLAYER);
             }
             return true;
         }
-
         return false;
     }
 

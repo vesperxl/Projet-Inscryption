@@ -20,11 +20,9 @@ public class MultiLives extends Power{
         player.addBoneStock();
 
         Optional<Card> cardOpt = board.getCard(index, Side.PLAYER);
-
         if (cardOpt.isPresent()) {
             cardOpt.get().removePower(this);
         }
-
         return true;
     }
 }

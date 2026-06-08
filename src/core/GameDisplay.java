@@ -183,6 +183,13 @@ public class GameDisplay
                     break;
                 case 4:
                     isTurnOver = true;
+                    if (currentGame.getTurnCounter() == 2) {
+                        sacrificeStoneEvent(currentGame, scanner);
+                    }
+                    break;
+
+                case 5:
+                    isTurnOver = true;
                     break;
                 default:
                     lastAction = "\nVeuillez sélectionnez un choix entre une action entre 1 et 4";
@@ -289,6 +296,34 @@ public class GameDisplay
                     System.out.printf("Des degats supplementaires de %d points ont ete infliges a la balance.%n", data.getOverkillDamage());
                 }
             }
+        }
+    }
+
+    private void sacrificeStoneEvent(Game currentGame, Scanner scanner) {
+        System.out.println("\n--- PIERRE DE SACRIFICE ---");
+        System.out.println("Vous pouvez sacrifier une créature de votre plateau pour donner ses pouvoirs à une autre.");
+        System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'skip' pour passer : ");
+        String source = scanner.next();
+
+        if (source.equalsIgnoreCase("skip")) {
+            return;
+        }
+
+        int sourceIndex = currentGame.caseTrad(source.toUpperCase());
+
+        System.out.print("Entrez la case de la créature qui recevra le pouvoir (ex: B2) : ");
+        String target = scanner.next();
+        int targetIndex = currentGame.caseTrad(target.toUpperCase());
+
+        if (sourceIndex != -1 && targetIndex != -1) {
+            boolean success = currentGame.useSacrificeStone(sourceIndex, targetIndex);
+            if (success) {
+                System.out.println("Le(s) pouvoir(s) a/ont été transféré(s) avec succès !");
+            } else {
+                System.out.println("Transfert impossible (carte introuvable, identique, ou ne possédant aucun pouvoir).");
+            }
+        } else {
+            System.out.println("Case invalide. L'évènement de la Pierre de Sacrifice est annulé.");
         }
     }
 }

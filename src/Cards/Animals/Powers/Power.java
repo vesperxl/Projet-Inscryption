@@ -22,10 +22,6 @@ public abstract class Power
 
     public boolean multiLivesPower(Player player, Board board, int index)
     {
-        player.addBloodStock();
-        player.addBoneStock();
-
-        board.removeCard(index, Side.PLAYER);
         return false;
     }
 

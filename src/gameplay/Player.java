@@ -62,8 +62,6 @@ public class Player {
     public void removeBoneStock(int quantity)
     {
         _boneStock -= quantity;
-
-
     }
 
     public int getBoneStock()
