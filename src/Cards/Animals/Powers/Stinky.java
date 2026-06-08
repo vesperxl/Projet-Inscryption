@@ -6,7 +6,7 @@ public class Stinky extends Power
     public String getName() {
         return "Stinky";
     }
-    //Test
+    //Test2
     @Override
     public int stinkyPower(int attack)
     {
