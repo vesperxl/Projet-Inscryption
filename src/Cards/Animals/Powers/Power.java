@@ -28,4 +28,18 @@ public abstract class Power
         board.removeCard(index, Side.PLAYER);
         return false;
     }
+
+    public Card growthPower(Card currentCard)
+    {
+        return currentCard;
+    }
+
+    public void sharpSpikesPower(Card cardAttacker)
+    {
+    }
+
+    public int sprinterPower(Board board, int currentIndex, Side side)
+    {
+        return currentIndex;
+    }
 }

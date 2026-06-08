@@ -37,6 +37,7 @@ public class Battle
             for (int i = 0; i < cardAttacker.get().getSizePower(); i++)
             {
                 cardAttacker.get().getPowers(i).contactKillerPower(cardDefender);
+                cardDefender.getPowers(i).sharpSpikesPower(cardAttacker.get());
             }
 
             attackHistory.add(new AttackData(attackerName, targetName, attack, isLethal, overkill));
@@ -77,6 +78,17 @@ public class Battle
                     Optional<Card> enemyIntention = board.getCard(i, Side.INTENTION);
                     if(enemyIntention.isPresent() && enemyIntention.get().get_healthPoint() <= 0){
                         killCard(i, Side.INTENTION, defenderPlayer, board);
+                    }
+                }
+
+                for (int j = 0; j < card.get().getSizePower(); j++)
+                {
+                    int newIndex = card.get().getPowers(j).sprinterPower(board, i, attacker);
+                    if (newIndex != i)
+                    {
+                        board.placeCard(card.get(), newIndex, attacker);
+                        board.removeCard(i, attacker);
+                        break;
                     }
                 }
             }

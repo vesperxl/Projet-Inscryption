@@ -202,7 +202,29 @@ public class Game {
         getPlayer().resetBlood();
         _hasDraw = false;
         _turnCounter++;
+        applyGrowth();
    }
+
+    public void applyGrowth()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Optional<Card> optCard = _board.getCard(i, Side.PLAYER);
+            if (optCard.isPresent())
+            {
+                Card current = optCard.get();
+                for (int j = 0; j < current.getSizePower(); j++)
+                {
+                    Card evolved = current.getPowers(j).growthPower(current);
+                    if (!evolved.get_nom().equals(current.get_nom()))
+                    {
+                        _board.removeCard(i, Side.PLAYER);
+                        _board.placeCard(evolved, i, Side.PLAYER);
+                    }
+                }
+            }
+        }
+    }
 
     public int caseTrad(String input){
         if (input == null || input.length() != 2){
