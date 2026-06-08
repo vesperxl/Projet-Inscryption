@@ -1,6 +1,6 @@
 package Cards.Animals.Powers;
 
-public class Growth implements Power{
+public class Growth extends Power{
     @Override
     public String getName() {
         return "Growth";

@@ -74,4 +74,9 @@ public abstract class AnimalsCard extends Card
     public void setAttack(int modif){
         _attack = modif;
     }
+
+    @Override
+    public void takeMortalDamage() {
+        this.takeDamage(this.get_healthPoint());
+    }
 }

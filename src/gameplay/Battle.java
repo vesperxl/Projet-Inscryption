@@ -1,5 +1,6 @@
 package gameplay;
 
+import Cards.Animals.Powers.Power;
 import Cards.Card;
 
 
@@ -8,27 +9,28 @@ import java.util.Optional;
 public class Battle
 {
 
-    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card, Board board)
+    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> cardDefenderOPT, Board board)
     {
-        if(card.isPresent()){
+        if(cardDefenderOPT.isPresent()){
 
-            if ( board.getCard(index, attacker).get().hasPower("Stinky")) {
-                card.get().modifAttack(-1);
-                if (card.get().getAttack() < 0)
-                {
-                    card.get().setAttack(0);
-                }
+            Optional<Card> cardAttacker = board.getCard(index, attacker);
+            Card cardDefender = cardDefenderOPT.get();
+
+            boolean hasContactKiller = false;
+
+            for (int i = 0; i < cardDefender.getSizePower(); i++)
+            {
+               attack = cardDefender.getPowers(i).stinkyPower(cardAttacker.get().getAttack());
+
             }
 
-            Card actualCard = card.get();
-
             int attackDiff = attack;
-            int cardLife = actualCard.get_healthPoint();
+            int cardLife = cardDefender.get_healthPoint();
             attackDiff -= cardLife;
 
 
             if (attackDiff > 0){
-                actualCard.takeDamage(attack);
+                cardDefender.takeDamage(attack);
 
                 if(attacker == Side.PLAYER && board.getCard(index,Side.INTENTION).isPresent()){
 
@@ -36,42 +38,21 @@ public class Battle
                     intentionCard.takeDamage(attackDiff);
                 }
 
-                if (card.get().hasPower("Sharp Spikes"))
-                {
-                   board.getCard(index, attacker).get().takeDamage(1);
-                }
-
             }
             else {
 
-                actualCard.takeDamage(attack);
+                cardDefender.takeDamage(attack);
+            }
+
+            for (int i = 0; i < cardAttacker.get().getSizePower(); i++)
+            {
+                cardAttacker.get().getPowers(i).contactKillerPower(cardDefender);
             }
         }
-        else {
+        else
+        {
             scoreManager.addPoint(attack, attacker);
         }
-
-        //ancien code pour comparer
-
-        /*
-        if(card != null){
-            int attackDiff = attack;
-            int cardLife = card.get_healthPoint();
-            attackDiff -= cardLife;
-
-            if (attackDiff > 0){
-                card.takeDamage(attack);
-                scoreManager.addPoint(attackDiff, attacker);
-            }
-            else{
-                card.takeDamage(attack);
-            }
-        }
-        else{
-            scoreManager.addPoint(attack, attacker);
-        }*/
-
-
     }
 
     public static void flyableAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)

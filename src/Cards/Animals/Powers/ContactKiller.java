@@ -1,8 +1,16 @@
 package Cards.Animals.Powers;
 
-public class ContactKiller implements Power{
+import Cards.Card;
+
+public class ContactKiller extends Power{
     @Override
     public String getName() {
-        return "ContactKiller";
+        return "Contact Killer";
+    }
+
+    @Override
+    public void contactKillerPower(Card cardDefender)
+    {
+        cardDefender.takeMortalDamage();
     }
 }

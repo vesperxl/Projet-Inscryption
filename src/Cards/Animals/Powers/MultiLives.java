@@ -1,8 +1,8 @@
 package Cards.Animals.Powers;
 
-public class MultiLives implements Power{
+public class MultiLives extends Power{
     @Override
     public String getName() {
-        return "MultiLives";
+        return "Multi Lives";
     }
 }

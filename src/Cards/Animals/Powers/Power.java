@@ -1,5 +1,18 @@
 package Cards.Animals.Powers;
 
-public interface Power {
-    String getName();
+import Cards.Card;
+
+public abstract class Power
+{
+    public String getName()
+    {
+        return "";
+    }
+    public int stinkyPower(int enemyAttack)
+    {
+        return enemyAttack;
+    }
+
+    public void contactKillerPower(Card cardDefender) {
+    }
 }

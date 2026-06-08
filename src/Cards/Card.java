@@ -122,4 +122,15 @@ public abstract class Card implements Attacker
     public void setAttack(int modif){
     }
 
+    public Power getPowers(int index)
+    {
+        return _powers.get(index);
+    }
+
+    public int getSizePower(){
+        return _powers.size();
+    }
+
+    public void takeMortalDamage() {
+    }
 }
