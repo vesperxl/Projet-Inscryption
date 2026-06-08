@@ -109,9 +109,9 @@ public abstract class Card implements Attacker
         return false;
     }
 
-
     public void addPower(Power p) {
-        if (!this.hasPower(p.getName())) {
+        if (!this.hasPower(p.getName()))
+        {
             this._powers.add(p);
         }
     }
@@ -123,6 +123,13 @@ public abstract class Card implements Attacker
     public void setAttack(int modif){
     }
 
+    public void removePower(Power p)
+    {
+        if (this.hasPower(p.getName()))
+        {
+            this._powers.add(p);
+        }
+    }
     public Power getPowers(int index)
     {
         return _powers.get(index);

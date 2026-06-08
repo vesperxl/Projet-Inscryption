@@ -50,17 +50,17 @@ public abstract class AnimalsCard extends Card
     }
 
     @Override
-    public boolean sacrifice(Player player, Board board, int index){
-
+    public boolean sacrifice(Player player, Board board, int index)
+    {
         Optional<Card> card = board.getCard(index, Side.PLAYER);
 
-        if(card.isPresent()){
-            player.addBloodStock();
-            player.addBoneStock();
-            if (!this.hasPower("Many Lives")) {
-                board.removeCard(index, Side.PLAYER);
+        if(card.isPresent())
+        {
+            for (int i = 0; i < card.get().getSizePower(); i++)
+            {
+                card.get().getPowers(i).multiLivesPower(player, board, index);
+                return true;
             }
-            return true;
         }
 
         return false;
