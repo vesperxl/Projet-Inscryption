@@ -6,41 +6,41 @@ import java.util.ArrayList;
 
 public class Battle
 {
-
     public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> cardDefenderOPT, Board board, ArrayList<AttackData> attackHistory)
     {
         String attackerName = board.getCard(index, attacker).get().get_nom();
 
         if(cardDefenderOPT.isPresent()){
-
             Optional<Card> cardAttacker = board.getCard(index, attacker);
             Card cardDefender = cardDefenderOPT.get();
 
+            int currentAttack = attack;
             for (int i = 0; i < cardDefender.getSizePower(); i++)
             {
-                attack = cardDefender.getPowers(i).stinkyPower(cardAttacker.get().getAttack());
+                currentAttack = cardDefender.getPowers(i).stinkyPower(currentAttack);
             }
 
             String targetName = cardDefender.get_nom();
-
-            int attackDiff = attack - cardDefender.get_healthPoint();
-            boolean isLethal = attack >= cardDefender.get_healthPoint();
+            int attackDiff = currentAttack - cardDefender.get_healthPoint();
+            boolean isLethal = currentAttack >= cardDefender.get_healthPoint();
             int overkill = Math.max(0, attackDiff);
 
-            cardDefender.takeDamage(attack);
+            cardDefender.takeDamage(currentAttack);
 
             if(attackDiff > 0 && attacker == Side.PLAYER && board.getCard(index, Side.INTENTION).isPresent()){
                 Card intentionCard = board.getCard(index, Side.INTENTION).get();
                 intentionCard.takeDamage(attackDiff);
             }
 
-            for (int i = 0; i < cardAttacker.get().getSizePower(); i++)
-            {
+            for (int i = 0; i < cardAttacker.get().getSizePower(); i++) {
                 cardAttacker.get().getPowers(i).contactKillerPower(cardDefender);
-                cardDefender.getPowers(i).sharpSpikesPower(cardAttacker.get());
             }
 
-            attackHistory.add(new AttackData(attackerName, targetName, attack, isLethal, overkill));
+            for (int j = 0; j < cardDefender.getSizePower(); j++) {
+                cardDefender.getPowers(j).sharpSpikesPower(cardAttacker.get());
+            }
+
+            attackHistory.add(new AttackData(attackerName, targetName, currentAttack, isLethal, overkill));
         }
         else {
             scoreManager.addPoint(attack, attacker);
@@ -70,13 +70,16 @@ public class Battle
 
                 card.get().attack(attacker, i, score, enemyCard, board, attackHistory);
 
-                if(enemyCard.isPresent() && enemyCard.get().get_healthPoint() <= 0){
+                if(enemyCard.isPresent() && enemyCard.get().get_healthPoint() <= 0)
+                {
                     killCard(i, defender, defenderPlayer, board);
                 }
 
-                if(attacker == Side.PLAYER){
+                if(attacker == Side.PLAYER)
+                {
                     Optional<Card> enemyIntention = board.getCard(i, Side.INTENTION);
-                    if(enemyIntention.isPresent() && enemyIntention.get().get_healthPoint() <= 0){
+                    if(enemyIntention.isPresent() && enemyIntention.get().get_healthPoint() <= 0)
+                    {
                         killCard(i, Side.INTENTION, defenderPlayer, board);
                     }
                 }

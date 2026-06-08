@@ -139,6 +139,7 @@ public abstract class Card implements Attacker
         return _powers.size();
     }
 
-    public void takeMortalDamage() {
+    public void takeMortalDamage()
+    {
     }
 }
