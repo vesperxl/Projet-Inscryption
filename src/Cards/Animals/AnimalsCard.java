@@ -3,6 +3,7 @@ package Cards.Animals;
 import Cards.Card;
 import gameplay.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public abstract class AnimalsCard extends Card
@@ -22,9 +23,9 @@ public abstract class AnimalsCard extends Card
 
 
     @Override
-    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card,Board board)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card, Board board, ArrayList<AttackData> attackHistory)
     {
-        Battle.basicAttack(attacker, index, _attack, scoreManager, card, board);
+        Battle.basicAttack(attacker, index, _attack, scoreManager, card, board,attackHistory);
     }
 
     @Override

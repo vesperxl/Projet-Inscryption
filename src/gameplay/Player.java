@@ -5,15 +5,29 @@ public class Player {
     private Hand _hand;
     private int _bloodStock;
     private int _boneStock;
+    private Deck _initialDeck;
+
 
     public Player(){
-        this._deck = Deck.randomDeck();
+        this._initialDeck = Deck.randomDeck();
+        this._deck = Deck.initialDeck(this._initialDeck);
         this._hand = new Hand(_deck);
-
     }
 
-    public void draw() throws IllegalStateException{
+    public void draw(){
         _hand.draw(_deck);
+    }
+
+    public void newGame(){
+
+        this._deck = Deck.initialDeck(this._initialDeck);
+
+
+
+        this._deck.shuffle();
+        this._hand = new Hand(this._deck);
+        this._boneStock = 0;
+        this._bloodStock = 0;
     }
 
     public Hand getHand(){
@@ -59,5 +73,9 @@ public class Player {
 
     public Deck getDeck(){
         return _deck;
+    }
+
+    public Deck getInitialDeck(){
+        return _initialDeck;
     }
 }

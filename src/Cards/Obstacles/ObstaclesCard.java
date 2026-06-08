@@ -3,6 +3,7 @@ package Cards.Obstacles;
 import Cards.Card;
 import gameplay.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public abstract class ObstaclesCard extends Card {
@@ -13,7 +14,7 @@ public abstract class ObstaclesCard extends Card {
     }
 
     @Override
-    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card, Board board)
+    public void attack(Side attacker, int index, ScoreManager scoreManager, Optional<Card> card, Board board, ArrayList<AttackData> attackHistory)
     {
 
     }
