@@ -13,6 +13,15 @@ public class Deck {
         this._cards = new ArrayDeque<>();
     }
 
+    public static Deck initialDeck(Deck source)
+    {
+        Deck deck = new Deck();
+
+        deck._cards.addAll(source._cards);
+
+        return deck;
+
+    }
     public static Deck randomDeck(){
         Deck deck = new Deck();
 
@@ -43,8 +52,6 @@ public class Deck {
     }
     public void addCard(Card carte){
         this._cards.addLast(carte);
-
-
     }
 
     public Card draw(){

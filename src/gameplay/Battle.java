@@ -1,6 +1,5 @@
 package gameplay;
 
-import Cards.Animals.Powers.Power;
 import Cards.Card;
 
 
@@ -9,14 +8,14 @@ import java.util.Optional;
 public class Battle
 {
 
-    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> cardDefenderOPT, Board board)
+    public static void basicAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> cardDefenderOPT, Board board, ArrayList<AttackData> attackHistory)
     {
         if(cardDefenderOPT.isPresent()){
 
             Optional<Card> cardAttacker = board.getCard(index, attacker);
             Card cardDefender = cardDefenderOPT.get();
+            String attackerName = board.getCard(index,attacker).get().get_nom();
 
-            boolean hasContactKiller = false;
 
             for (int i = 0; i < cardDefender.getSizePower(); i++)
             {
@@ -24,10 +23,12 @@ public class Battle
 
             }
 
-            int attackDiff = attack;
-            int cardLife = cardDefender.get_healthPoint();
-            attackDiff -= cardLife;
+            String targetName = cardDefender.get_nom();
 
+            int attackDiff = attack - cardDefender.get_healthPoint();;
+
+            boolean isLethal = attack >= cardDefender.get_healthPoint();
+            int overkill = Math.max(0,attackDiff);
 
             if (attackDiff > 0){
                 cardDefender.takeDamage(attack);
@@ -44,16 +45,27 @@ public class Battle
                 cardDefender.takeDamage(attack);
             }
 
-            for (int i = 0; i < cardAttacker.get().getSizePower(); i++)
-            {
-                cardAttacker.get().getPowers(i).contactKillerPower(cardDefender);
-            }
+
+            attackHistory.add(new AttackData(attackerName,targetName,attack,isLethal,overkill));
         }
-        else
-        {
+        else {
             scoreManager.addPoint(attack, attacker);
+
+            attackHistory.add(new AttackData(attackerName,"la balance",attack,false,0));
+
+
         }
+
     }
+
+    public static void flyableAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card, Board board, ArrayList<AttackData> attackHistory)
+    {
+        String attackerName = board.getCard(index, attacker).get().get_nom();
+
+        scoreManager.addPoint(attack, attacker);
+
+        attackHistory.add(new AttackData(attackerName, "la balance (depuis les airs)", attack, false, 0));
+
 
     public static void flyableAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card)
     {

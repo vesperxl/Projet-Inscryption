@@ -1,9 +1,11 @@
 package core;
 
 import Cards.Animals.*;
+import Cards.Attacker;
 import Cards.Card;
 import gameplay.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -16,10 +18,10 @@ public class Game {
     private boolean _hasDraw;
     private int _turnCounter;
     private Battle _battlePhase;
+    private ArrayList<AttackData> _attackHistory = new ArrayList<>();
 
-
-    public Game(){
-        _player = new Player();
+    public Game(Player player){
+        _player = player;
         _ennemy = new Player();
         _board = new Board();
         _score = new ScoreManager();
@@ -144,35 +146,35 @@ public class Game {
    public void planOpponentNextTurn(){
         switch(this._turnCounter){
             case 1:
-                _board.placeEnemyIntention(new Squirrel(), 2);
+                _board.placeEnemyIntention(new Squirrel(), 1);
                 break;
             case 2:
-                _board.placeEnemyIntention(new Ermine(), 1);
+                _board.placeEnemyIntention(new Ermine(), 0);
                 break;
             case 3:
                 break;
             case 4:
-                _board.placeEnemyIntention(new Cat(), 4);
-                _board.placeEnemyIntention(new WolfPup(), 3);
+                _board.placeEnemyIntention(new Cat(), 3);
+                _board.placeEnemyIntention(new WolfPup(), 2);
                 break;
             case 5:
                 break;
             case 6:
-                _board.placeEnemyIntention(new Sparrow(),1);
+                _board.placeEnemyIntention(new Sparrow(),0);
                 break;
             case 7:
-                _board.placeEnemyIntention(new Wolf(), 2);
+                _board.placeEnemyIntention(new Wolf(), 1);
                 break;
             case 8:
-                _board.placeEnemyIntention((new Squirrel()), 3);
+                _board.placeEnemyIntention(new Squirrel(), 2);
                 break;
             case 9:
                 break;
             case 10 :
-                _board.placeEnemyIntention(new Grizzly(), 1);
+                _board.placeEnemyIntention(new Grizzly(), 0);
                 break;
             default:
-                _board.placeEnemyIntention(new Bug(), 4);
+                _board.placeEnemyIntention(new Bug(), 3);
 
         }
 
@@ -196,6 +198,7 @@ public class Game {
 
 
    public void startNewTurn(){
+
         getPlayer().resetBlood();
         _hasDraw = false;
         _turnCounter++;
@@ -223,11 +226,21 @@ public class Game {
     }
 
     public void executeCombatPhase(Side attacker, Side defender, Player defenderPlayer){
-            _battlePhase.attack(attacker, defender, _score,defenderPlayer,_board);
+            _battlePhase.attack(attacker, defender, _score,defenderPlayer,_board, this._attackHistory);
     }
 
     public Player getEnemy(){
         return _ennemy;
+    }
+
+    public int sizeAttackHistory() { return this._attackHistory.size(); };
+
+    public void clearAttackHistory(){
+        this._attackHistory.clear();
+    }
+
+    public AttackData getAttackHistory(int index){
+        return this._attackHistory.get(index);
     }
 
 

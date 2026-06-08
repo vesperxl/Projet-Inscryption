@@ -21,6 +21,7 @@ public abstract class Card implements Attacker
     public Card(String name, int hp){
         this._nom = name;
         this._healthPoint = hp;
+        this._powers = new ArrayList<>();
     }
     
     public int get_healthPoint()

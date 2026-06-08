@@ -12,8 +12,9 @@ public class GameTest {
 
     @Test
     public void testDraw_Succes() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
+
 
         DrawStatus statut = engine.draw(testPlayer);
 
@@ -22,8 +23,9 @@ public class GameTest {
 
     @Test
     public void testDraw_AlreadyDrawn() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
+
 
         engine.draw(testPlayer);
         DrawStatus statut = engine.draw(testPlayer);
@@ -33,8 +35,9 @@ public class GameTest {
 
     @Test
     public void testDraw_EmptyDeck() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
+
 
         while(!testPlayer.getDeck().isEmpty()) {
             testPlayer.getDeck().draw();
@@ -47,7 +50,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_InvalidIndex() {
-        Game engine = new Game();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         PlaceStatus statut = engine.placeCard(0, 5);
 
@@ -56,7 +60,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_CardNotFound() {
-        Game engine = new Game();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         PlaceStatus statut = engine.placeCard(99, 0);
 
@@ -65,8 +70,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_NotEnoughBlood() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         engine.getBoard().removeCard(0, Side.PLAYER);
 
@@ -79,8 +84,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_NotEnoughBones() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         engine.getBoard().removeCard(0, Side.PLAYER);
         testPlayer.getHand().addCard(new Coyote());
@@ -92,8 +97,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_Succes() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         engine.getBoard().removeCard(0, Side.PLAYER);
 
@@ -108,8 +113,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_SuccessWithBlood() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         engine.getBoard().removeCard(0, Side.PLAYER);
         engine.getBoard().removeCard(1, Side.PLAYER);
@@ -134,8 +139,8 @@ public class GameTest {
 
     @Test
     public void testPlaceCard_SuccesWithBones() {
-        Game engine = new Game();
-        Player testPlayer = engine.getPlayer();
+        Player testPlayer = new Player();
+        Game engine = new Game(testPlayer);
 
         engine.getBoard().removeCard(0, Side.PLAYER);
 
