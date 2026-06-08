@@ -127,7 +127,7 @@ public abstract class Card implements Attacker
     {
         if (this.hasPower(p.getName()))
         {
-            this._powers.add(p);
+            this._powers.remove(p);
         }
     }
     public Power getPowers(int index)
