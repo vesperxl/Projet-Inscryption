@@ -1,5 +1,6 @@
 package Cards.Obstacles;
 
+import Cards.Animals.Powers.Power;
 import Cards.Card;
 import gameplay.*;
 
@@ -27,5 +28,10 @@ public abstract class ObstaclesCard extends Card {
     @Override
     public int getBlood(){
         return 0;
+    }
+
+    @Override
+    public void addPower(Power p)
+    {
     }
 }

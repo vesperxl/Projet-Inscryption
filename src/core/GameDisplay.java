@@ -301,11 +301,11 @@ public class GameDisplay
 
     private void sacrificeStoneEvent(Game currentGame, Scanner scanner) {
         System.out.println("\n--- PIERRE DE SACRIFICE ---");
-        System.out.println("Vous pouvez sacrifier une créature de votre plateau pour donner ses pouvoirs à une autre.");
-        System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'skip' pour passer : ");
+        System.out.println("Vous pouvez sacrifier une créature de votre plateau pour donner ses pouvoirs (si elle en a) à une autre.");
+        System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'non' pour passer : ");
         String source = scanner.next();
 
-        if (source.equalsIgnoreCase("skip")) {
+        if (source.equalsIgnoreCase("non")) {
             return;
         }
 
@@ -317,12 +317,19 @@ public class GameDisplay
 
         if (sourceIndex != -1 && targetIndex != -1) {
             boolean success = currentGame.useSacrificeStone(sourceIndex, targetIndex);
-            if (success) {
-                System.out.println("Le(s) pouvoir(s) a/ont été transféré(s) avec succès !");
-            } else {
-                System.out.println("Transfert impossible (carte introuvable, identique, ou ne possédant aucun pouvoir).");
+            if (success)
+            {
+                System.out.println("Sacrifice effectué ! Les pouvoirs (s'il y en avait) ont été transférés.");
             }
-        } else {
+
+            else
+            {
+                System.out.println("Action impossible (carte introuvable, identique, ou vous essayez de sacrifier un obstacle).");
+            }
+        }
+
+        else
+        {
             System.out.println("Case invalide. L'évènement de la Pierre de Sacrifice est annulé.");
         }
     }
