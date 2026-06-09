@@ -9,7 +9,7 @@ import java.util.Optional;
 public class Sparrow extends AnimalsCard{
     public Sparrow()
     {
-        super("Sparrow", 2,1, 1, 0);
+        super("Moineau", 2,1, 1, 0);
     }
 
     @Override

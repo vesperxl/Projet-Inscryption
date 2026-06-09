@@ -4,6 +4,6 @@ public class Squirrel extends AnimalsCard
 {
     public Squirrel()
     {
-        super("Squirrel", 1,0, 0, 0);
+        super("Ecureuil", 1,0, 0, 0);
     }
 }

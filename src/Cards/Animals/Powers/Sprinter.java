@@ -6,7 +6,7 @@ import gameplay.Side;
 public class Sprinter extends Power{
     @Override
     public String getName() {
-        return "Sprinter";
+        return "Coureur";
     }
 
     @Override

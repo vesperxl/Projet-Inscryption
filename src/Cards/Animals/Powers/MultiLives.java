@@ -10,7 +10,7 @@ import java.util.Optional;
 public class MultiLives extends Power{
     @Override
     public String getName() {
-        return "Multi Lives";
+        return "Nombreuses Vies";
     }
 
     @Override

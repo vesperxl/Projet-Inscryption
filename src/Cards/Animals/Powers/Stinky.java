@@ -4,9 +4,8 @@ public class Stinky extends Power
 {
     @Override
     public String getName() {
-        return "Stinky";
+        return "Puant";
     }
-    //Test2
     @Override
     public int stinkyPower(int attack)
     {
