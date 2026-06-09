@@ -9,27 +9,26 @@ import gameplay.Side;
 
 import java.util.Scanner;
 
-public class GameDisplay
-{
+public class GameDisplay {
     private int _playerWins = 0;
     private int _enemyWins = 0;
     private int _matchNumber = 1;
     private Player _player = new Player();
 
 
-    public void launchGame(){
+    public void launchGame() {
 
-        while(this._playerWins < 3 && this._enemyWins < 3){
+        while (this._playerWins < 3 && this._enemyWins < 3) {
 
-            if(_matchNumber == 3){
+            if (_matchNumber == 3) {
                 cardChoice();
             }
 
             _player.newGame();
 
-            Game currentGame =  new Game(_player);
+            Game currentGame = new Game(_player);
 
-            while(!currentGame.isGameOver()){
+            while (!currentGame.isGameOver()) {
 
 
                 currentGame.startNewTurn();
@@ -37,7 +36,6 @@ public class GameDisplay
 
                 currentGame.getBoard().moveEnemyIntention();
                 currentGame.planOpponentNextTurn();
-
 
 
                 playerMenu(currentGame);
@@ -51,17 +49,17 @@ public class GameDisplay
 
             _matchNumber++;
 
-            if(currentGame.playerWin()){
+            if (currentGame.playerWin()) {
                 _playerWins++;
-            }else{
+            } else {
                 _enemyWins++;
             }
 
         }
 
-        if(this._playerWins >= 3){
+        if (this._playerWins >= 3) {
             System.out.println("Félicitations vous avez remporté le jeu !");
-        }else{
+        } else {
             System.out.println("Game over, vous avez perdu...");
         }
 
@@ -69,12 +67,12 @@ public class GameDisplay
     }
 
 
-    public void playerMenu(Game currentGame){
+    public void playerMenu(Game currentGame) {
         Scanner scanner = new Scanner(System.in);
         boolean isTurnOver = false;
-        String lastAction = "" ;
+        String lastAction = "";
 
-        while(!isTurnOver){
+        while (!isTurnOver) {
 
 
             clearConsole();
@@ -84,13 +82,11 @@ public class GameDisplay
             System.out.println("Manche " + currentGame.getTurnCounter());
 
 
-
-
             Display.DisplayBoard(currentGame);
 
             displayHistory(currentGame);
 
-            if(!lastAction.isEmpty()){
+            if (!lastAction.isEmpty()) {
                 System.out.println(lastAction);
             }
 
@@ -107,16 +103,16 @@ public class GameDisplay
 
             int choix = 0;
 
-            if(scanner.hasNextInt()){
+            if (scanner.hasNextInt()) {
                 choix = scanner.nextInt();
-            }else{
+            } else {
                 scanner.next();
             }
 
-            switch (choix){
+            switch (choix) {
                 case 1:
                     DrawStatus drawStatus = currentGame.draw(currentGame.getPlayer());
-                    switch (drawStatus){
+                    switch (drawStatus) {
                         case SUCCESS:
                             lastAction = "\nVous avez pioché une carte " + currentGame.getPlayer().getHand().getCard(currentGame.getPlayer().getHand().getSize() - 1).get().get_nom() + "!";
                             break;
@@ -142,10 +138,10 @@ public class GameDisplay
 
                     int boardIndex = currentGame.caseTrad(coordonee);
 
-                    PlaceStatus placeStatus = currentGame.placeCard(handIndex,boardIndex);
-                    switch (placeStatus){
+                    PlaceStatus placeStatus = currentGame.placeCard(handIndex, boardIndex);
+                    switch (placeStatus) {
                         case SUCCESS:
-                            lastAction = "\nLa carte " + currentGame.getBoard().getCard(boardIndex, Side.PLAYER).get().get_nom()   + " à bien été placé sur la case B" + (boardIndex + 1);
+                            lastAction = "\nLa carte " + currentGame.getBoard().getCard(boardIndex, Side.PLAYER).get().get_nom() + " à bien été placé sur la case B" + (boardIndex + 1);
                             break;
                         case CELL_OCCUPIED:
                             lastAction = "\nImpossible de jouer! La case choisi est déjà occupé par une autre carte !";
@@ -166,15 +162,14 @@ public class GameDisplay
                     break;
                 case 3:
                     System.out.println("\nSélectionner la case de la créature à sacrifier :");
-                    String coord = scanner.next();
+                    String coord = scanner.next().toUpperCase();
                     int indexBoard = currentGame.caseTrad(coord);
-                    if(indexBoard == -1){
+                    if (indexBoard == -1) {
                         lastAction = "\nLa case n'existe pas ou ne vous appartient pas!";
-                    }
-                    else{
-                        if(!currentGame.sacrifice(indexBoard)){
+                    } else {
+                        if (!currentGame.sacrifice(indexBoard)) {
                             lastAction = "\nSeulement les cartes Animal peuvent être sacrifié!";
-                        }else{
+                        } else {
                             lastAction = "\nVous avez sacrifié une carte";
                         }
 
@@ -186,10 +181,6 @@ public class GameDisplay
                     if (currentGame.getTurnCounter() == 2) {
                         sacrificeStoneEvent(currentGame, scanner);
                     }
-                    break;
-
-                case 5:
-                    isTurnOver = true;
                     break;
                 default:
                     lastAction = "\nVeuillez sélectionnez un choix entre une action entre 1 et 4";
@@ -203,16 +194,16 @@ public class GameDisplay
 
     private void clearConsole() {
         try {
-            for(int i = 0; i < 50; i++) {
-                 System.out.println();
-             }
+            for (int i = 0; i < 50; i++) {
+                System.out.println();
+            }
 
         } catch (Exception e) {
         }
     }
 
 
-    private void cardChoice(){
+    private void cardChoice() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -270,15 +261,15 @@ public class GameDisplay
     }
 
 
-    private void displayHistory(Game currentGame){
+    private void displayHistory(Game currentGame) {
 
         int historySize = currentGame.sizeAttackHistory();
 
-        if(historySize > 0){
+        if (historySize > 0) {
             for (int i = 0; i < historySize; i++) {
                 AttackData data = currentGame.getAttackHistory(i);
 
-                if(data.getDamageDealt() > 0){
+                if (data.getDamageDealt() > 0) {
                     System.out.printf("La carte %s a inflige %d degats a %s.%n",
                             data.getAttackerName(),
                             data.getDamageDealt(),
@@ -301,35 +292,70 @@ public class GameDisplay
     private void sacrificeStoneEvent(Game currentGame, Scanner scanner) {
         System.out.println("\n--- PIERRE DE SACRIFICE ---");
         System.out.println("Vous pouvez sacrifier une créature de votre plateau pour donner ses pouvoirs (si elle en a) à une autre.");
-        System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'non' pour passer : ");
-        String source = scanner.next();
 
-        if (source.equalsIgnoreCase("non")) {
-            return;
-        }
+        boolean actionSucces = false;
 
-        int sourceIndex = currentGame.caseTrad(source.toUpperCase());
+        while (!actionSucces) {
 
-        System.out.print("Entrez la case de la créature qui recevra le pouvoir (ex: B2) : ");
-        String target = scanner.next();
-        int targetIndex = currentGame.caseTrad(target.toUpperCase());
+            int sourceIndex = -1;
+            while (sourceIndex == -1) {
+                System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'non' pour passer : ");
+                String source = scanner.next();
 
-        if (sourceIndex != -1 && targetIndex != -1) {
-            boolean success = currentGame.useSacrificeStone(sourceIndex, targetIndex);
-            if (success)
-            {
-                System.out.println("Sacrifice effectué ! Les pouvoirs (s'il y en avait) ont été transférés.");
+                if (source.equalsIgnoreCase("non")) {
+                    System.out.println("Évènement de la Pierre de Sacrifice passé.");
+                    return;
+                }
+
+                sourceIndex = currentGame.caseTrad(source.toUpperCase());
+                if (sourceIndex == -1) {
+                    System.out.println("Erreur : Coordonnée invalide. Veuillez taper une case correcte.");
+                }
             }
 
-            else
-            {
-                System.out.println("Action impossible (carte introuvable, identique, ou vous essayez de sacrifier un obstacle).");
-            }
-        }
 
-        else
-        {
-            System.out.println("Case invalide. L'évènement de la Pierre de Sacrifice est annulé.");
+            int targetIndex = -1;
+            while (targetIndex == -1) {
+                System.out.print("Entrez la case de la créature qui recevra le pouvoir (ex: B2) ou 'non' pour annuler : ");
+                String target = scanner.next();
+
+                if (target.equalsIgnoreCase("non")) {
+                    System.out.println("Évènement de la Pierre de Sacrifice passé.");
+                    return;
+                }
+
+                targetIndex = currentGame.caseTrad(target.toUpperCase());
+                if (targetIndex == -1) {
+                    System.out.println("Erreur : Coordonnée invalide. Veuillez taper une case correcte.");
+                }
+            }
+
+
+            SacrificeStatus status = currentGame.useSacrificeStone(sourceIndex, targetIndex);
+
+            switch (status) {
+                case SUCCESS:
+                    System.out.println("Sacrifice effectué ! Les pouvoirs ont été transférés.");
+                    actionSucces = true;
+                    break;
+                case SAME_CARD:
+                    System.out.println("Erreur : Vous ne pouvez pas sacrifier une carte sur elle-même ! Recommençons.");
+                    System.out.println("");
+
+                    break;
+                case CARD_NOT_FOUND:
+                    System.out.println("Erreur : L'une des cases sélectionnées est vide. Recommençons.");
+                    System.out.println("");
+
+                    break;
+                case CANT_SACRIFICE_OBSTACLE:
+                    System.out.println("Erreur : Un obstacle ne peut pas être sacrifié !. Recommençons.");
+                    System.out.println("");
+                    break;
+            }
         }
     }
 }
+
+
+

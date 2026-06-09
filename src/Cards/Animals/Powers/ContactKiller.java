@@ -8,6 +8,7 @@ public class ContactKiller extends Power{
         return "Contact Killer";
     }
 
+
     @Override
     public void contactKillerPower(Card cardDefender)
     {

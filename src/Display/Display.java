@@ -29,58 +29,7 @@ public class Display {
         DisplayLine(engine.getBoard().getPlayerLine(), 2);
         System.out.println("                           Score: " + engine.getScore().getCurrentScore());
 
-
-
-
-        System.out.println("                                                                           Pioche : ");
-        System.out.println("                                                                           *-----------*");
-        System.out.println("Your hand :                                                                |           |");
-
-        int nb = 5;
-        if(engine.getPlayer().getHand().getSize() > nb){
-            nb = engine.getPlayer().getHand().getSize();
-        }
-
-        for(int i = 0 ;i < nb; i++){
-
-            Optional<Card> optCard = engine.getPlayer().getHand().getCard(i);
-            if(optCard.isPresent()){
-                Card card = optCard.get();
-
-                System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d",
-                        i + 1,
-                        card.get_nom(),
-                        card.get_healthPoint(),
-                        card.getAttack(),
-                        card.getBlood(),
-                        card.getBone()
-                );
-
-                System.out.print("          ");
-
-
-
-            }else{
-                System.out.print("                                                                           ");
-            }
-
-            constructDeck(i,engine);
-
-
-
-
-
-
-        }
-
-        /*System.out.println("Pioche : ");
-        System.out.println("*-----------*");
-        System.out.println("|           |");
-        System.out.println("|           |");
-        System.out.printf("|     %-6d|%n", engine.getPlayer().getDeck().getSizeDeck());
-        System.out.println("|   cartes  |");
-        System.out.println("|           |");
-        System.out.println("*-----------*");*/
+        DisplayHand(engine);
 
 
 
@@ -113,22 +62,31 @@ public class Display {
 
 
     public static void DisplayLine(Optional<Card>[] line, int nbLine){
-        for(int i = 0; i < 7;i++){
 
-            constructLineCard(line,i,nbLine);
+
+        int maxPowers = 1;
+        for(int i = 0; i < 4; i++){
+            if(line[i].isPresent()){
+                int powersCount = line[i].get().getSizePower();
+                if(powersCount > maxPowers){
+                    maxPowers = powersCount;
+                }
+            }
+        }
+
+        int totalLine = 7 + maxPowers;
+        int lastIndex = totalLine - 1;
+
+
+        for(int i = 0; i <= lastIndex;i++){
+            constructLineCard(line,i,nbLine, lastIndex);
             System.out.println("");
         }
 
     }
 
 
-    public static void constructLineCard(Optional<Card>[] line, int index, int nbLine) {
-
-        if (index < 0 || index > 6) {
-            System.out.print("Index out of range : " + index);
-            return;
-        }
-
+    public static void constructLineCard(Optional<Card>[] line, int index, int nbLine, int lastIndex) {
 
         for (int i = 0; i < 4; i++) {
             Optional<Card> OptionalCard = line[i];
@@ -143,7 +101,14 @@ public class Display {
                     case 3: System.out.printf("| %-10s|   ", card.displayHp()); break;
                     case 4: System.out.printf("| %-10s|   ", card.displayAttack()); break;
                     case 5: System.out.printf("| %-10s|   ", card.displaySigil()); break;
-                    case 6: System.out.print("*-----------*   "); break;
+                    default:
+                        if(index == lastIndex){
+                            System.out.print("*-----------*   ");
+                        }else{
+                            int powerIndex = index - 6;
+                            System.out.printf("| %-10s|   ", card.displayPower(powerIndex));
+                        }
+                    break;
                 }
             } else {
                 switch (index) {
@@ -159,14 +124,63 @@ public class Display {
                             System.out.print("*           *   ");
                         }
                         break;
-                    case 6:
-                        System.out.print("*************   ");
-                        break;
                     default:
-                        System.out.print("*           *   ");
+                        if(index == lastIndex){
+                            System.out.print("*************   ");
+                        }else{
+                            System.out.print("*           *   ");
+                        }
                         break;
+
                 }
             }
+        }
+    }
+
+
+    public static void DisplayHand(Game engine){
+
+        System.out.println("                                                                                                         Pioche : ");
+        System.out.println("                                                                                                         *-----------*");
+        System.out.println("Your hand :                                                                                              |           |");
+
+        int nb = 5;
+        if(engine.getPlayer().getHand().getSize() > nb){
+            nb = engine.getPlayer().getHand().getSize();
+        }
+
+        for(int i = 0 ;i < nb; i++){
+
+            Optional<Card> optCard = engine.getPlayer().getHand().getCard(i);
+            if(optCard.isPresent()){
+                Card card = optCard.get();
+
+                String powerStr  = "Aucun pouvoir";
+
+                if(card.getSizePower() > 0){
+                    powerStr = card.getPowers(0).getName();
+                }
+
+                System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d    Pouvoir : %-16s",
+                        i + 1,
+                        card.get_nom(),
+                        card.get_healthPoint(),
+                        card.getAttack(),
+                        card.getBlood(),
+                        card.getBone(),
+                        powerStr
+                );
+
+                System.out.print("          ");
+
+
+
+            }else{
+                System.out.print("                                                                                                         ");
+            }
+
+            constructDeck(i,engine);
+
         }
     }
 

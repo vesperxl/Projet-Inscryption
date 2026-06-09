@@ -16,9 +16,6 @@ public class MultiLives extends Power{
     @Override
     public boolean multiLivesPower(Player player, Board board, int index)
     {
-        player.addBloodStock();
-        player.addBoneStock();
-
         Optional<Card> cardOpt = board.getCard(index, Side.PLAYER);
         if (cardOpt.isPresent()) {
             cardOpt.get().removePower(this);

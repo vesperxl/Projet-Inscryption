@@ -87,6 +87,17 @@ public abstract class Card implements Attacker
         return "";
     }
 
+    public String displayPower(int index){
+
+        if(index < this.getSizePower()){
+            return this._powers.get(index).getName();
+        }
+
+        return "";
+    }
+
+
+
     public abstract int getBlood();
 
     public abstract int getBone();

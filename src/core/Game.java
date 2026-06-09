@@ -216,11 +216,9 @@ public class Game {
                 for (int j = 0; j < current.getSizePower(); j++)
                 {
                     Card evolved = current.getPowers(j).growthPower(current);
-                    if (!evolved.get_nom().equals(current.get_nom()))
-                    {
-                        _board.removeCard(i, Side.PLAYER);
-                        _board.placeCard(evolved, i, Side.PLAYER);
-                    }
+                    _board.removeCard(i, Side.PLAYER);
+                    _board.placeCard(evolved, i, Side.PLAYER);
+
                 }
             }
         }
@@ -265,37 +263,40 @@ public class Game {
         return this._attackHistory.get(index);
     }
 
-    public boolean useSacrificeStone(int sourceBoardIndex, int targetBoardIndex) {
+    public SacrificeStatus useSacrificeStone(int sourceBoardIndex, int targetBoardIndex) {
 
         if (sourceBoardIndex == targetBoardIndex) {
-            return false;
+            return SacrificeStatus.SAME_CARD;
         }
 
         Optional<Card> sourceCardOpt = _board.getCard(sourceBoardIndex, Side.PLAYER);
         Optional<Card> targetCardOpt = _board.getCard(targetBoardIndex, Side.PLAYER);
 
-        if (sourceCardOpt.isPresent() && targetCardOpt.isPresent()) {
-            Card sourceCard = sourceCardOpt.get();
-            Card targetCard = targetCardOpt.get();
+        if (!sourceCardOpt.isPresent() || !targetCardOpt.isPresent()) {
+            return SacrificeStatus.CARD_NOT_FOUND;
+        }
 
-            for (int i = 0; i < sourceCard.getSizePower(); i++)
-            {
-                targetCard.addPower(sourceCard.getPowers(i));
-            }
+
+        Card sourceCard = sourceCardOpt.get();
+        Card targetCard = targetCardOpt.get();
+
+        for (int i = 0; i < sourceCard.getSizePower(); i++)
+        {
+            targetCard.addPower(sourceCard.getPowers(i));
+        }
 
             if (sourceCard.sacrifice(_player, _board, sourceBoardIndex))
             {
-                return true;
-
+                return SacrificeStatus.SUCCESS;
             }
-
             else
             {
                 for (int i = 0; i < sourceCard.getSizePower(); i++) {
                     targetCard.removePower(sourceCard.getPowers(i));
                 }
+                return SacrificeStatus.CANT_SACRIFICE_OBSTACLE;
             }
-        }
-        return false;
+
+
     }
 }

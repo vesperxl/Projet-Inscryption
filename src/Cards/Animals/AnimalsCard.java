@@ -56,6 +56,8 @@ public abstract class AnimalsCard extends Card
 
         if(card.isPresent())
         {
+            player.addBloodStock();
+            player.addBoneStock();
 
             boolean survived = false;
 
@@ -66,8 +68,6 @@ public abstract class AnimalsCard extends Card
             }
 
             if (!survived) {
-                player.addBloodStock();
-                player.addBoneStock();
                 board.removeCard(index, Side.PLAYER);
             }
             return true;
