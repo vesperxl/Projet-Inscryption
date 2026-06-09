@@ -50,19 +50,28 @@ public abstract class AnimalsCard extends Card
     }
 
     @Override
-    public boolean sacrifice(Player player, Board board, int index){
-
+    public boolean sacrifice(Player player, Board board, int index)
+    {
         Optional<Card> card = board.getCard(index, Side.PLAYER);
 
-        if(card.isPresent()){
-            player.addBloodStock();
-            player.addBoneStock();
-            if (!this.hasPower("Many Lives")) {
+        if(card.isPresent())
+        {
+
+            boolean survived = false;
+
+            for (int i = 0; i < this.getSizePower(); i++) {
+                if (this.getPowers(i).multiLivesPower(player, board, index)) {
+                    survived = true;
+                }
+            }
+
+            if (!survived) {
+                player.addBloodStock();
+                player.addBoneStock();
                 board.removeCard(index, Side.PLAYER);
             }
             return true;
         }
-
         return false;
     }
 
@@ -74,5 +83,10 @@ public abstract class AnimalsCard extends Card
     @Override
     public void setAttack(int modif){
         _attack = modif;
+    }
+
+    @Override
+    public void takeMortalDamage() {
+        this.takeDamage(this.get_healthPoint());
     }
 }

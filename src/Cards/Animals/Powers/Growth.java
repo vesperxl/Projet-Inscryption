@@ -1,8 +1,24 @@
 package Cards.Animals.Powers;
 
-public class Growth implements Power{
+import Cards.Animals.Wolf;
+import Cards.Card;
+
+public class Growth extends Power
+{
+
+    private int _turnsOnBoard = 0;
+
     @Override
     public String getName() {
         return "Growth";
+    }
+
+    @Override
+    public Card growthPower(Card currentCard) {
+        this._turnsOnBoard++;
+        if (this._turnsOnBoard >= 2) {
+            return new Wolf();
+        }
+        return currentCard;
     }
 }

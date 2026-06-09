@@ -1,8 +1,15 @@
 package Cards.Animals.Powers;
 
-public class SharpSpikes implements Power {
+import Cards.Card;
+
+public class SharpSpikes extends Power{
     @Override
     public String getName() {
-        return "SharpSpikes";
+        return "Sharp Spikes";
+    }
+
+    @Override
+    public void sharpSpikesPower(Card cardAttacker) {
+        cardAttacker.takeDamage(1);
     }
 }

@@ -39,7 +39,8 @@ public class Hand {
 
     public Optional<Card> getCard(int index) {
 
-        if (index < 0 || index >= _handCards.size()) {
+        if (index < 0 || index >= _handCards.size())
+        {
             return Optional.empty();
         }
 
