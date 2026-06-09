@@ -8,6 +8,7 @@ import gameplay.Board;
 import gameplay.Player;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -15,12 +16,12 @@ public abstract class Card implements Attacker
 {
     private String _nom;
     private int _healthPoint;
-    private ArrayList<Power> _powers;
+
 
     public Card(String name, int hp){
         this._nom = name;
         this._healthPoint = hp;
-        this._powers = new ArrayList<>();
+
     }
     
     public int get_healthPoint()
@@ -88,11 +89,6 @@ public abstract class Card implements Attacker
     }
 
     public String displayPower(int index){
-
-        if(index < this.getSizePower()){
-            return this._powers.get(index).getName();
-        }
-
         return "";
     }
 
@@ -108,19 +104,11 @@ public abstract class Card implements Attacker
     }
 
     public boolean hasPower(String powerName) {
-        for (int i = 0; i < this._powers.size(); i++) {
-            if (this._powers.get(i).getName().equals(powerName)) {
-                return true;
-            }
-        }
         return false;
     }
 
-    public void addPower(Power p) {
-        if (!this.hasPower(p.getName()))
-        {
-            this._powers.add(p);
-        }
+    public boolean addPower(Power p) {
+        return false;
     }
 
     public void modifAttack(int modif)
@@ -132,18 +120,14 @@ public abstract class Card implements Attacker
 
     public void removePower(Power p)
     {
-        if (this.hasPower(p.getName()))
-        {
-            this._powers.remove(p);
-        }
     }
-    public Power getPowers(int index)
+    public Optional<Power> getPowers(int index)
     {
-        return _powers.get(index);
+        return Optional.empty();
     }
 
     public int getSizePower(){
-        return _powers.size();
+        return 0;
     }
 
     public void takeMortalDamage()

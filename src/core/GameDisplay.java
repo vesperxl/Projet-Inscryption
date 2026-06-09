@@ -313,6 +313,38 @@ public class GameDisplay {
                 }
             }
 
+            java.util.Optional<Card> sourceCardOpt = currentGame.getBoard().getCard(sourceIndex, Side.PLAYER);
+
+            if (sourceCardOpt.isEmpty()) {
+                System.out.println("Erreur : Il n'y a aucune créature sur cette case. Recommençons.\n");
+                continue;
+            }
+
+            Card sourceCard = sourceCardOpt.get();
+
+            if (sourceCard.getSizePower() == 0) {
+                System.out.println("Cette carte n'a aucun pouvoir. Elle va être sacrifiée normalement...");
+
+                if (currentGame.sacrifice(sourceIndex)) {
+                    System.out.println("Sacrifice normal effectué !");
+                    try
+                    {
+                        Thread.sleep(3000);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        Thread.currentThread().interrupt();
+                    }
+                    actionSucces = true;
+                    return;
+                }
+
+                else
+                {
+                    System.out.println("Action impossible (vous essayez de sacrifier un obstacle). Recommençons.\n");
+                    continue;
+                }
+            }
 
             int targetIndex = -1;
             while (targetIndex == -1) {
@@ -330,7 +362,6 @@ public class GameDisplay {
                 }
             }
 
-
             SacrificeStatus status = currentGame.useSacrificeStone(sourceIndex, targetIndex);
 
             switch (status) {
@@ -341,17 +372,20 @@ public class GameDisplay {
                 case SAME_CARD:
                     System.out.println("Erreur : Vous ne pouvez pas sacrifier une carte sur elle-même ! Recommençons.");
                     System.out.println("");
-
                     break;
                 case CARD_NOT_FOUND:
                     System.out.println("Erreur : L'une des cases sélectionnées est vide. Recommençons.");
                     System.out.println("");
-
                     break;
                 case CANT_SACRIFICE_OBSTACLE:
-                    System.out.println("Erreur : Un obstacle ne peut pas être sacrifié !. Recommençons.");
+                    System.out.println("Erreur : Un obstacle ne peut pas être sacrifié ! Recommençons.");
                     System.out.println("");
                     break;
+                case CANT_POWER_OBSTACLE:
+                    System.out.println("Erreur : Impossible de Transférer un pouvoir sur un obstacle ! Recommençons.");
+                    System.out.println("");
+                    break;
+
             }
         }
     }

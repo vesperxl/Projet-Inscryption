@@ -215,10 +215,16 @@ public class Game {
                 Card current = optCard.get();
                 for (int j = 0; j < current.getSizePower(); j++)
                 {
-                    Card evolved = current.getPowers(j).growthPower(current);
+                    Card evolved = current.getPowers(j).get().growthPower(current);
                     _board.removeCard(i, Side.PLAYER);
                     _board.placeCard(evolved, i, Side.PLAYER);
 
+                    if (evolved != current)
+                    {
+                        _board.removeCard(i, Side.PLAYER);
+                        _board.placeCard(evolved, i, Side.PLAYER);
+                        break;
+                    }
                 }
             }
         }
@@ -282,7 +288,10 @@ public class Game {
 
         for (int i = 0; i < sourceCard.getSizePower(); i++)
         {
-            targetCard.addPower(sourceCard.getPowers(i));
+            if(!targetCard.addPower(sourceCard.getPowers(i).get()))
+            {
+                return SacrificeStatus.CANT_POWER_OBSTACLE;
+            }
         }
 
             if (sourceCard.sacrifice(_player, _board, sourceBoardIndex))
@@ -292,7 +301,7 @@ public class Game {
             else
             {
                 for (int i = 0; i < sourceCard.getSizePower(); i++) {
-                    targetCard.removePower(sourceCard.getPowers(i));
+                    targetCard.removePower(sourceCard.getPowers(i).get());
                 }
                 return SacrificeStatus.CANT_SACRIFICE_OBSTACLE;
             }

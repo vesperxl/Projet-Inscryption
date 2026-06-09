@@ -1,5 +1,6 @@
 package Cards.Animals;
 
+import Cards.Animals.Powers.Power;
 import Cards.Card;
 import gameplay.*;
 
@@ -11,6 +12,7 @@ public abstract class AnimalsCard extends Card
     private int _attack;
     private int _blood;
     private int _bone;
+    private ArrayList<Power> _powers;
 
     public AnimalsCard(String name, int hp, int attack, int blood, int bone)
     {
@@ -18,6 +20,7 @@ public abstract class AnimalsCard extends Card
         _attack = attack;
         _blood = blood;
         _bone = bone;
+        this._powers = new ArrayList<>();
     }
 
 
@@ -62,7 +65,7 @@ public abstract class AnimalsCard extends Card
             boolean survived = false;
 
             for (int i = 0; i < this.getSizePower(); i++) {
-                if (this.getPowers(i).multiLivesPower(player, board, index)) {
+                if (this.getPowers(i).get().multiLivesPower(player, board, index)) {
                     survived = true;
                 }
             }
@@ -89,4 +92,59 @@ public abstract class AnimalsCard extends Card
     public void takeMortalDamage() {
         this.takeDamage(this.get_healthPoint());
     }
+
+
+    @Override
+    public boolean addPower(Power p) {
+        if (!this.hasPower(p.getName()))
+        {
+            this._powers.add(p);
+        }
+        return true;
+    }
+
+    @Override
+    public String displayPower(int index){
+
+        if(index < this.getSizePower()){
+            return this._powers.get(index).getName();
+        }
+
+        return "";
+    }
+
+    @Override
+    public boolean hasPower(String powerName) {
+        for (int i = 0; i < this._powers.size(); i++) {
+            if (this._powers.get(i).getName().equals(powerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void removePower(Power p)
+    {
+        if (this.hasPower(p.getName()))
+        {
+            this._powers.remove(p);
+        }
+    }
+
+    @Override
+    public Optional<Power> getPowers(int index)
+    {
+        if (index >= 0 && index < this.getSizePower())
+        {
+            return Optional.of(_powers.get(index));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public int getSizePower(){
+        return _powers.size();
+    }
+
 }

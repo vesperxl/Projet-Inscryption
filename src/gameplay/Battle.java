@@ -1,5 +1,6 @@
 package gameplay;
 
+import Cards.Animals.Powers.Power;
 import Cards.Card;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -17,7 +18,11 @@ public class Battle
             int currentAttack = attack;
             for (int i = 0; i < cardDefender.getSizePower(); i++)
             {
-                currentAttack = cardDefender.getPowers(i).stinkyPower(currentAttack);
+                Optional<Power> powerOpt = cardDefender.getPowers(i);
+                if (powerOpt.isPresent())
+                {
+                    currentAttack = cardDefender.getPowers(i).get().stinkyPower(currentAttack);
+                }
             }
 
             String targetName = cardDefender.get_nom();
@@ -33,11 +38,19 @@ public class Battle
             }
 
             for (int i = 0; i < cardAttacker.get().getSizePower(); i++) {
-                cardAttacker.get().getPowers(i).contactKillerPower(cardDefender);
+                Optional<Power> powerOpt = cardDefender.getPowers(i);
+                if (powerOpt.isPresent())
+                {
+                    cardAttacker.get().getPowers(i).get().contactKillerPower(cardDefender);
+                }
             }
 
-            for (int j = 0; j < cardDefender.getSizePower(); j++) {
-                cardDefender.getPowers(j).sharpSpikesPower(cardAttacker.get());
+            for (int i = 0; i < cardDefender.getSizePower(); i++)
+            {
+                Optional<Power> powerOpt = cardDefender.getPowers(i);
+                if (powerOpt.isPresent()) {
+                    cardDefender.getPowers(i).get().sharpSpikesPower(cardAttacker.get());
+                }
             }
 
             attackHistory.add(new AttackData(attackerName, targetName, currentAttack, isLethal, overkill));
@@ -62,13 +75,20 @@ public class Battle
 
     public void attack(Side attacker, Side defender, ScoreManager score, Player defenderPlayer, Board board, ArrayList<AttackData> attackHistory)
     {
+        ArrayList<Card> actedCards = new ArrayList<>();
+
         for (int i = 0; i < 4; i++)
         {
-            Optional<Card> card = board.getCard(i, attacker);
-            if (card.isPresent()){
+            Optional<Card> cardOpt = board.getCard(i, attacker);
+
+            if (cardOpt.isPresent() && !actedCards.contains(cardOpt.get())){
+
+                Card card = cardOpt.get();
+                actedCards.add(card);
+
                 Optional<Card> enemyCard = board.getCard(i, defender);
 
-                card.get().attack(attacker, i, score, enemyCard, board, attackHistory);
+                card.attack(attacker, i, score, enemyCard, board, attackHistory);
 
                 if(enemyCard.isPresent() && enemyCard.get().get_healthPoint() <= 0)
                 {
@@ -84,12 +104,12 @@ public class Battle
                     }
                 }
 
-                for (int j = 0; j < card.get().getSizePower(); j++)
+                for (int j = 0; j < card.getSizePower(); j++)
                 {
-                    int newIndex = card.get().getPowers(j).sprinterPower(board, i, attacker);
+                    int newIndex = card.getPowers(j).get().sprinterPower(board, i, attacker);
                     if (newIndex != i)
                     {
-                        board.placeCard(card.get(), newIndex, attacker);
+                        board.placeCard(card, newIndex, attacker);
                         board.removeCard(i, attacker);
                         break;
                     }

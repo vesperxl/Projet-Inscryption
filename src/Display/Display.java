@@ -157,8 +157,11 @@ public class Display {
 
                 String powerStr  = "Aucun pouvoir";
 
-                if(card.getSizePower() > 0){
-                    powerStr = card.getPowers(0).getName();
+                if(card.getSizePower() > 0)
+                {
+                    if(card.getPowers(0).isPresent()){
+                        powerStr = card.getPowers(0).get().getName();
+                    }
                 }
 
                 System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d    Pouvoir : %-16s",

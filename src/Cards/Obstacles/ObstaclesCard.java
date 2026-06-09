@@ -31,7 +31,8 @@ public abstract class ObstaclesCard extends Card {
     }
 
     @Override
-    public void addPower(Power p)
+    public boolean addPower(Power p)
     {
+        return false;
     }
 }
