@@ -5,7 +5,7 @@ import Cards.Card;
 public class ContactKiller extends Power{
     @Override
     public String getName() {
-        return "Contact Mortel";
+        return "Cont. Mor.";
     }
 
 
