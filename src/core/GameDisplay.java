@@ -268,7 +268,6 @@ public class GameDisplay
         int historySize = currentGame.sizeAttackHistory();
 
         if(historySize > 0){
-            System.out.println("\n-- RESULTAT DES ATTAQUES --");
             for (int i = 0; i < historySize; i++) {
                 AttackData data = currentGame.getAttackHistory(i);
 

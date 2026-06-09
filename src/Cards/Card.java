@@ -10,7 +10,6 @@ import gameplay.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
- //test
 
 public abstract class Card implements Attacker
 {
@@ -94,10 +93,7 @@ public abstract class Card implements Attacker
 
 
     public boolean sacrifice(Player player, Board board, int index){
-
         return false;
-
-
     }
 
     public boolean hasPower(String powerName) {
