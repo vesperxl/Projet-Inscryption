@@ -9,7 +9,7 @@ import java.util.Optional;
 public class Raven extends AnimalsCard{
     public Raven()
     {
-        super("Raven", 3,2, 2, 0);
+        super("Corbeau", 3,2, 2, 0);
 
     }
 

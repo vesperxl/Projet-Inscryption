@@ -10,7 +10,7 @@ public class Growth extends Power
 
     @Override
     public String getName() {
-        return "Growth";
+        return "Croissance";
     }
 
     @Override
