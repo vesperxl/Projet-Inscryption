@@ -9,7 +9,7 @@ public class SharpSpikes extends Power{
     }
 
     @Override
-    public void sharpSpikesPower(Card cardAttacker) {
+    public void onAttacked(Card cardAttacker) {
         cardAttacker.takeDamage(1);
     }
 }

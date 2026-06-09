@@ -12,29 +12,29 @@ public abstract class Power
         return "";
     }
 
-    public int stinkyPower(int enemyAttack)
+    public int onEnemyAttackCalculation(int enemyAttack)
     {
         return enemyAttack;
     }
 
-    public void contactKillerPower(Card cardDefender) {
+    public void onDamageDealt(Card cardDefender) {
     }
 
-    public boolean multiLivesPower(Player player, Board board, int index)
+    public boolean onSacrificeEvent(Player player, Board board, int index)
     {
         return false;
     }
 
-    public Card growthPower(Card currentCard)
+    public Card onTurnEnd(Card currentCard)
     {
         return currentCard;
     }
 
-    public void sharpSpikesPower(Card cardAttacker)
+    public void onAttacked(Card cardAttacker)
     {
     }
 
-    public int sprinterPower(Board board, int currentIndex, Side side)
+    public int onTurnEndMovement(Board board, int currentIndex, Side side)
     {
         return currentIndex;
     }

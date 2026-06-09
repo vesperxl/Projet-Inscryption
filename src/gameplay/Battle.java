@@ -21,7 +21,7 @@ public class Battle
                 Optional<Power> powerOpt = cardDefender.getPowers(i);
                 if (powerOpt.isPresent())
                 {
-                    currentAttack = cardDefender.getPowers(i).get().stinkyPower(currentAttack);
+                    currentAttack = cardDefender.getPowers(i).get().onEnemyAttackCalculation(currentAttack);
                 }
             }
 
@@ -41,7 +41,7 @@ public class Battle
                 Optional<Power> powerOpt = cardDefender.getPowers(i);
                 if (powerOpt.isPresent())
                 {
-                    cardAttacker.get().getPowers(i).get().contactKillerPower(cardDefender);
+                    cardAttacker.get().getPowers(i).get().onDamageDealt(cardDefender);
                 }
             }
 
@@ -49,7 +49,7 @@ public class Battle
             {
                 Optional<Power> powerOpt = cardDefender.getPowers(i);
                 if (powerOpt.isPresent()) {
-                    cardDefender.getPowers(i).get().sharpSpikesPower(cardAttacker.get());
+                    cardDefender.getPowers(i).get().onAttacked(cardAttacker.get());
                 }
             }
 
@@ -106,7 +106,7 @@ public class Battle
 
                 for (int j = 0; j < card.getSizePower(); j++)
                 {
-                    int newIndex = card.getPowers(j).get().sprinterPower(board, i, attacker);
+                    int newIndex = card.getPowers(j).get().onTurnEndMovement(board, i, attacker);
                     if (newIndex != i)
                     {
                         board.placeCard(card, newIndex, attacker);

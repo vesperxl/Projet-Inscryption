@@ -10,7 +10,7 @@ public class ContactKiller extends Power{
 
 
     @Override
-    public void contactKillerPower(Card cardDefender)
+    public void onDamageDealt(Card cardDefender)
     {
         cardDefender.takeMortalDamage();
     }

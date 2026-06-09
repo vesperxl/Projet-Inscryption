@@ -14,7 +14,7 @@ public class MultiLives extends Power{
     }
 
     @Override
-    public boolean multiLivesPower(Player player, Board board, int index)
+    public boolean onSacrificeEvent(Player player, Board board, int index)
     {
         Optional<Card> cardOpt = board.getCard(index, Side.PLAYER);
         if (cardOpt.isPresent()) {
@@ -23,3 +23,4 @@ public class MultiLives extends Power{
         return true;
     }
 }
+

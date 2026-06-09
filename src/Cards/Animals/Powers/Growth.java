@@ -16,7 +16,7 @@ public class Growth extends Power
     }
 
     @Override
-    public Card growthPower(Card currentCard) {
+    public Card onTurnEnd(Card currentCard) {
         this._turnsOnBoard++;
         if (this._turnsOnBoard >= 2)
         {

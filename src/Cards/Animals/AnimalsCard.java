@@ -65,7 +65,7 @@ public abstract class AnimalsCard extends Card
             boolean survived = false;
 
             for (int i = 0; i < this.getSizePower(); i++) {
-                if (this.getPowers(i).get().multiLivesPower(player, board, index)) {
+                if (this.getPowers(i).get().onSacrificeEvent(player, board, index)) {
                     survived = true;
                 }
             }

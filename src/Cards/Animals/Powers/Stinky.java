@@ -7,7 +7,7 @@ public class Stinky extends Power
         return "Puant";
     }
     @Override
-    public int stinkyPower(int attack)
+    public int onEnemyAttackCalculation(int attack)
     {
         if (attack > 0){
             return attack -= 1;

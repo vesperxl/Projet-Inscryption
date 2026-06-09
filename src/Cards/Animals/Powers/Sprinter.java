@@ -10,7 +10,7 @@ public class Sprinter extends Power{
     }
 
     @Override
-    public int sprinterPower(Board board, int currentIndex, Side side)
+    public int onTurnEndMovement(Board board, int currentIndex, Side side)
     {
         if (currentIndex + 1 < 4 && board.getCard(currentIndex + 1, side).isEmpty())
         {

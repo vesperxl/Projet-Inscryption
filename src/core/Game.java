@@ -1,7 +1,6 @@
 package core;
 
 import Cards.Animals.*;
-import Cards.Attacker;
 import Cards.Card;
 import gameplay.*;
 
@@ -215,7 +214,7 @@ public class Game {
                 Card current = optCard.get();
                 for (int j = 0; j < current.getSizePower(); j++)
                 {
-                    Card evolved = current.getPowers(j).get().growthPower(current);
+                    Card evolved = current.getPowers(j).get().onTurnEnd(current);
                     _board.removeCard(i, Side.PLAYER);
                     _board.placeCard(evolved, i, Side.PLAYER);
 
