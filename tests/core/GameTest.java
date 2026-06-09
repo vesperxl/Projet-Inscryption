@@ -160,4 +160,49 @@ public class GameTest {
         assertEquals(PlaceStatus.SUCCESS, statut);
         assertEquals(0, testPlayer.getBoneStock());
     }
+
+    @Test
+    public void testUseSacrificeStone() {
+        Player player = new Player();
+        Game game = new Game(player);
+        
+        game.getBoard().removeCard(0, Side.PLAYER);
+        game.getBoard().removeCard(1, Side.PLAYER);
+        
+        Cards.Animals.Bug bug = new Cards.Animals.Bug(); 
+        Cards.Animals.Wolf wolf = new Cards.Animals.Wolf(); 
+        
+        game.getBoard().placeCard(bug, 0, Side.PLAYER);
+        game.getBoard().placeCard(wolf, 1, Side.PLAYER);
+        
+        SacrificeStatus status = game.useSacrificeStone(0, 1);
+        
+        assertEquals(SacrificeStatus.SUCCESS, status);
+        assertTrue(wolf.hasPower("Puant"));
+        assertFalse(game.getBoard().getCard(0, Side.PLAYER).isPresent()); 
+    }
+
+    @Test
+    public void testGameSetup() {
+        Player player = new Player();
+        Game game = new Game(player);
+        
+        assertNotNull(game.getBoard());
+        assertNotNull(game.getPlayer());
+        assertNotNull(game.getEnemy());
+        assertNotNull(game.getScore());
+    }
+    
+    @Test
+    public void testGameOverAndWin() {
+        Player player = new Player();
+        Game game = new Game(player);
+        
+        assertFalse(game.isGameOver());
+        
+        game.getScore().addPoint(5, Side.PLAYER);
+        
+        assertTrue(game.isGameOver());
+        assertTrue(game.playerWin());
+    }
 }

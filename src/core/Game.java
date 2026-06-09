@@ -142,44 +142,49 @@ public class Game {
    }
 
 
-   public void planOpponentNextTurn(){
+    public void planOpponentNextTurn(){
         switch(this._turnCounter){
             case 1:
-                _board.placeEnemyIntention(new Squirrel(), 1);
-                break;
-            case 2:
-                _board.placeEnemyIntention(new Ermine(), 0);
-                break;
-            case 3:
-                break;
-            case 4:
-                _board.placeEnemyIntention(new Cat(), 3);
+                _board.placeEnemyIntention(new Ermine(), 1);
                 _board.placeEnemyIntention(new WolfPup(), 2);
                 break;
+            case 2:
+                _board.placeEnemyIntention(new Sparrow(), 0);
+                break;
+            case 3:
+                _board.placeEnemyIntention(new Wolf(), 3);
+                _board.placeEnemyIntention(new Bug(), 1);
+                break;
+            case 4:
+                _board.placeEnemyIntention(new Sparrow(), 2);
+                break;
             case 5:
+                _board.placeEnemyIntention(new Grizzly(), 0);
                 break;
             case 6:
-                _board.placeEnemyIntention(new Sparrow(),0);
+                _board.placeEnemyIntention(new WolfPup(), 1);
+                _board.placeEnemyIntention(new WolfPup(), 3);
                 break;
             case 7:
-                _board.placeEnemyIntention(new Wolf(), 1);
+                _board.placeEnemyIntention(new Wolf(), 2);
                 break;
             case 8:
-                _board.placeEnemyIntention(new Squirrel(), 2);
+                _board.placeEnemyIntention(new Grizzly(), 1);
+                _board.placeEnemyIntention(new Sparrow(), 3);
                 break;
             case 9:
+                _board.placeEnemyIntention(new Wolf(), 0);
                 break;
             case 10 :
                 _board.placeEnemyIntention(new Grizzly(), 0);
+                _board.placeEnemyIntention(new Grizzly(), 2);
+                _board.placeEnemyIntention(new Grizzly(), 3);
                 break;
             default:
-                _board.placeEnemyIntention(new Bug(), 3);
-
+                _board.placeEnemyIntention(new Wolf(), 1);
+                _board.placeEnemyIntention(new Sparrow(), 0);
         }
-
-
-
-   }
+    }
 
 
    public boolean isGameOver(){
