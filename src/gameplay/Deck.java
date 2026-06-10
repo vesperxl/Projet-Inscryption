@@ -67,6 +67,17 @@ public class Deck {
         return this._cards.isEmpty();
     }
 
+    public Optional<Card> getCard(){
+
+        return Optional.ofNullable(_cards.poll());
+
+    }
+
+    public ArrayList<Card> getCardsForDisplay() {
+
+        return new ArrayList<>(_cards);
+    }
+
 
 
 }

@@ -3,7 +3,10 @@ package Display;
 
 import Cards.Card;
 import core.Game;
+import core.PlaceStatus;
+import gameplay.Deck;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class Display {
@@ -155,24 +158,7 @@ public class Display {
             if(optCard.isPresent()){
                 Card card = optCard.get();
 
-                String powerStr  = "Aucun pouvoir";
-
-                if(card.getSizePower() > 0)
-                {
-                    if(card.getPowers(0).isPresent()){
-                        powerStr = card.getPowers(0).get().getName();
-                    }
-                }
-
-                System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d    Pouvoir : %-16s",
-                        i + 1,
-                        card.get_nom(),
-                        card.get_healthPoint(),
-                        card.getAttack(),
-                        card.getBlood(),
-                        card.getBone(),
-                        powerStr
-                );
+                displayCard(card, i);
 
                 System.out.print("          ");
 
@@ -186,6 +172,45 @@ public class Display {
 
         }
     }
+
+
+    public static void DisplayDeck(Deck deck){
+
+        ArrayList<Card> lst = deck.getCardsForDisplay();
+
+        for(int i = 0; i < deck.getSizeDeck();i++){
+            System.out.printf("Votre pioche : \n");
+            displayCard(lst.get(i),i);
+            System.out.println("");
+
+        }
+    }
+
+
+    public static void displayCard(Card card, int i){
+
+        String powerStr  = "Aucun pouvoir";
+
+        if(card.getSizePower() > 0)
+        {
+            if(card.getPowers(0).isPresent()){
+                powerStr = card.getPowers(0).get().getName();
+            }
+        }
+
+
+        System.out.printf("   %d. %-12s PV: %d     Att: %d    Gouttes de sang: %d  Os : %d    Pouvoir : %-16s",
+                i + 1,
+                card.get_nom(),
+                card.get_healthPoint(),
+                card.getAttack(),
+                card.getBlood(),
+                card.getBone(),
+                powerStr
+        );
+
+    }
+
 
 
 
