@@ -174,7 +174,7 @@ public class Display {
     }
 
 
-    public static void DisplayDeck(Deck deck){
+   /* public static void DisplayDeck(Deck deck){
 
 
         for(int i = 0; i < deck.getSizeDeck();i++){
@@ -184,6 +184,8 @@ public class Display {
 
         }
     }
+
+    */
 
 
     public static void displayCard(Card card, int i){

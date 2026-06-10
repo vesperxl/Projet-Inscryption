@@ -24,6 +24,10 @@ public class GameDisplay {
 
             _player.newGame();
 
+
+
+            _player.newHand();
+
             Game currentGame = new Game(_player);
 
             if (_matchNumber == 3)
