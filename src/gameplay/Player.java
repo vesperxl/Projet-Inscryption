@@ -23,7 +23,6 @@ public class Player {
         this._deck = Deck.initialDeck(this._initialDeck);
 
 
-
         this._deck.shuffle();
 
         this._boneStock = 0;

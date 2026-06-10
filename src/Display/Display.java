@@ -145,7 +145,7 @@ public class Display {
 
         System.out.println("                                                                                                         Pioche : ");
         System.out.println("                                                                                                         *-----------*");
-        System.out.println("Ta main :                                                                                              |           |");
+        System.out.println("Ta main :                                                                                                |           |");
 
         int nb = 5;
         if(engine.getPlayer().getHand().getSize() > nb){
