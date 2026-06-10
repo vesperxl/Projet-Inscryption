@@ -174,9 +174,8 @@ public class Display {
     }
 
 
-    public static void DisplayDeck(Deck deck){
+   /* public static void DisplayDeck(Deck deck){
 
-        ArrayList<Card> lst = deck.getCardsForDisplay();
 
         for(int i = 0; i < deck.getSizeDeck();i++){
             System.out.printf("Votre pioche : \n");
@@ -185,6 +184,8 @@ public class Display {
 
         }
     }
+
+    */
 
 
     public static void displayCard(Card card, int i){

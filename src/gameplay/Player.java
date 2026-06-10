@@ -25,10 +25,15 @@ public class Player {
 
 
         this._deck.shuffle();
-        this._hand = new Hand(this._deck);
+
         this._boneStock = 0;
         this._bloodStock = 0;
     }
+
+    public void newHand(){
+        this._hand = new Hand(this._deck);
+    }
+
 
     public Hand getHand(){
         return _hand;

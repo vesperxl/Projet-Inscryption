@@ -26,6 +26,10 @@ public class GameDisplay {
 
             _player.newGame();
 
+
+
+            _player.newHand();
+
             Game currentGame = new Game(_player);
 
             while (!currentGame.isGameOver()) {
