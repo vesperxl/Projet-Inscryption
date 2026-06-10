@@ -176,11 +176,10 @@ public class Display {
 
     public static void DisplayDeck(Deck deck){
 
-        ArrayList<Card> lst = deck.getCardsForDisplay();
 
         for(int i = 0; i < deck.getSizeDeck();i++){
             System.out.printf("Votre pioche : \n");
-            displayCard(lst.get(i),i);
+            displayCard(deck.getCard(i).get(),i);
             System.out.println("");
 
         }

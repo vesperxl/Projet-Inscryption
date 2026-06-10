@@ -274,14 +274,15 @@ public class Game {
         return this._attackHistory.get(index);
     }
 
-    public SacrificeStatus useSacrificeStone(int sourceBoardIndex, int targetBoardIndex) {
+    public SacrificeStatus useSacrificeStone(int sourceIndex, int targetIndex) {
 
-        if (sourceBoardIndex == targetBoardIndex) {
+        if (sourceIndex == targetIndex)
+        {
             return SacrificeStatus.SAME_CARD;
         }
 
-        Optional<Card> sourceCardOpt = _board.getCard(sourceBoardIndex, Side.PLAYER);
-        Optional<Card> targetCardOpt = _board.getCard(targetBoardIndex, Side.PLAYER);
+        Optional<Card> sourceCardOpt = _player.getDeck().getCard(sourceIndex);
+        Optional<Card> targetCardOpt = _player.getDeck().getCard(targetIndex);
 
         if (!sourceCardOpt.isPresent() || !targetCardOpt.isPresent()) {
             return SacrificeStatus.CARD_NOT_FOUND;
@@ -298,19 +299,6 @@ public class Game {
                 return SacrificeStatus.CANT_POWER_OBSTACLE;
             }
         }
-
-            if (sourceCard.sacrifice(_player, _board, sourceBoardIndex))
-            {
-                return SacrificeStatus.SUCCESS;
-            }
-            else
-            {
-                for (int i = 0; i < sourceCard.getSizePower(); i++) {
-                    targetCard.removePower(sourceCard.getPowers(i).get());
-                }
-                return SacrificeStatus.CANT_SACRIFICE_OBSTACLE;
-            }
-
-
+        return SacrificeStatus.SUCCESS;
     }
 }
