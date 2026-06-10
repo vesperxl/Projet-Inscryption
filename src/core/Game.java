@@ -119,8 +119,6 @@ public class Game {
             return DrawStatus.EMPTY_DECK;
         }
 
-
-
         player.draw();
         _hasDraw = true;
 

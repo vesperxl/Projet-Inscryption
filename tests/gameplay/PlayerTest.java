@@ -19,8 +19,12 @@ public class PlayerTest {
     }
     
     @Test
-    public void testAddCardToInitialDeck() {
+    public void testAjoutNouvellesCartesPiocheFinDeuxiemePartie() {
         Player player = new Player();
+        
+        player.newGame();
+        player.newGame();
+        
         int sizeBefore = player.getInitialDeck().getSizeDeck();
         
         player.getInitialDeck().addCard(new Wolf());
