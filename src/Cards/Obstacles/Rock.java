@@ -4,7 +4,7 @@ public class Rock extends ObstaclesCard{
 
 
     public Rock() {
-        super("Rock", 5);
+        super("Kayou", 5);
     }
 }
 

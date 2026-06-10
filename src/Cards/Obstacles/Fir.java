@@ -3,6 +3,6 @@ package Cards.Obstacles;
 public class Fir extends ObstaclesCard{
 
     public Fir() {
-        super("Fir", 3);
+        super("Sapin", 3);
     }
 }
