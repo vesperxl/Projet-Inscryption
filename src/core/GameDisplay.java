@@ -24,16 +24,18 @@ public class GameDisplay {
 
             _player.newGame();
 
-
-
-            _player.newHand();
-
             Game currentGame = new Game(_player);
 
             if (_matchNumber == 3)
             {
                 sacrificeStoneEvent(currentGame);
+                Display.DisplayDeck(currentGame.getPlayer().getDeck());
             }
+
+            _player.newHand();
+
+
+
             while (!currentGame.isGameOver()) {
 
 
@@ -313,8 +315,12 @@ public class GameDisplay {
 
                 if (scanner.hasNextInt()) {
                     source = scanner.nextInt();
-                    if (source < 0 && source > deck.getSizeDeck()) {
+                    if (source <= 0 && source > deck.getSizeDeck()) {
                         System.out.println("Erreur : Veuillez choisir un index valide");
+                    }
+                    else
+                    {
+                        input = true;
                     }
                 } else {
                     System.out.println("Erreur : Saisie invalide, ce n'est pas un chiffre.");
@@ -331,47 +337,30 @@ public class GameDisplay {
 
             Card sourceCard = sourceCardOpt.get();
 
-            if (sourceCard.getSizePower() == 0) {
-                System.out.println("Cette carte n'a aucun pouvoir. Elle va être sacrifiée normalement...");
+            input = false;
+            int target = 0;
 
-                if (currentGame.sacrifice(source)) {
-                    System.out.println("Sacrifice normal effectué !");
-                    try
-                    {
-                        Thread.sleep(2000);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        Thread.currentThread().interrupt();
-                    }
-                    actionSucces = true;
-                    return;
-                }
+            while (!input) {
+                System.out.print("Entrez l'index de la créature qui recevra le pouvoir : ");
 
-                else
-                {
-                    System.out.println("Action impossible (vous essayez de sacrifier un obstacle). Recommençons.\n");
-                    continue;
+                if (scanner.hasNextInt()) {
+                    target = scanner.nextInt();
+                    if (target <= 0 && target > deck.getSizeDeck()) {
+                        System.out.println("Erreur : Veuillez choisir un index valide");
+                    }
+                    else
+                    {
+                        input = true;
+                    }
+                } else {
+                    System.out.println("Erreur : Saisie invalide, ce n'est pas un chiffre.");
+                    scanner.next();
                 }
             }
 
-            int targetIndex = -1;
-            while (targetIndex == -1) {
-                System.out.print("Entrez la case de la créature qui recevra le pouvoir (ex: B2) ou 'non' pour annuler : ");
-                String target = scanner.next();
-
-                if (target.equalsIgnoreCase("non")) {
-                    System.out.println("Évènement de la Pierre de Sacrifice passé.");
-                    return;
-                }
-
-                targetIndex = currentGame.caseTrad(target.toUpperCase());
-                if (targetIndex == -1) {
-                    System.out.println("Erreur : Coordonnée invalide. Veuillez taper une case correcte.");
-                }
-            }
-
-            SacrificeStatus status = currentGame.useSacrificeStone(source, targetIndex);
+            source--;
+            target--;
+            SacrificeStatus status = currentGame.useSacrificeStone(source, target);
 
             switch (status) {
                 case SUCCESS:

@@ -298,7 +298,10 @@ public class Game {
             {
                 return SacrificeStatus.CANT_POWER_OBSTACLE;
             }
+            sourceCard.removePower(sourceCard.getPowers(i).get());
         }
+
+
         return SacrificeStatus.SUCCESS;
     }
 }
