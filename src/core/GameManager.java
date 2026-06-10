@@ -7,7 +7,7 @@ import gameplay.*;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class GameDisplay {
+public class GameManager {
     private int _playerWins = 0;
     private int _enemyWins = 0;
     private int _matchNumber = 1;

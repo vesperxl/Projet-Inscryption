@@ -27,8 +27,8 @@ package "core" {
         + useSacrificeStone(sourceBoardIndex: int, targetBoardIndex: int): SacrificeStatus
     }
 
-    class GameDisplay {
-        + GameDisplay()
+    class GameManager {
+        + GameManager()
         - _playerWins: int = 0
         - _enemyWins: int = 0
         - _matchNumber: int = 1
@@ -335,7 +335,7 @@ class Main {
     + {static} main(args: String[])
 }
 
-Main --> GameDisplay
+Main --> GameManager
 Main --> Game
 Display --> Game
 
@@ -350,7 +350,7 @@ Game *-- "1" ScoreManager : - _score
 Game *-- "1" Battle : - _battlePhase
 Game *-- "0..*" AttackData : - _attackHistory
 
-GameDisplay *-- "1" Player : - _player
+GameManager *-- "1" Player : - _player
 
 Player *-- "1" Deck : - _deck
 Player *-- "1" Deck : - _initialDeck
