@@ -211,23 +211,26 @@ public class Game {
 
     public void applyGrowth()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            Optional<Card> optCard = _board.getCard(i, Side.PLAYER);
-            if (optCard.isPresent())
-            {
-                Card current = optCard.get();
-                for (int j = 0; j < current.getSizePower(); j++)
-                {
-                    Card evolved = current.getPowers(j).get().onTurnEnd(current);
-                    _board.removeCard(i, Side.PLAYER);
-                    _board.placeCard(evolved, i, Side.PLAYER);
+        Side[] sidesToCheck = {Side.PLAYER, Side.ENEMY};
 
-                    if (evolved != current)
+        for (Side side : sidesToCheck)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Optional<Card> optCard = _board.getCard(i, side);
+                if (optCard.isPresent())
+                {
+                    Card current = optCard.get();
+                    for (int j = 0; j < current.getSizePower(); j++)
                     {
-                        _board.removeCard(i, Side.PLAYER);
-                        _board.placeCard(evolved, i, Side.PLAYER);
-                        break;
+                        Card evolved = current.getPowers(j).get().onTurnEnd(current);
+
+                        if (evolved != current)
+                        {
+                            _board.removeCard(i, side);
+                            _board.placeCard(evolved, i, side);
+                            break;
+                        }
                     }
                 }
             }
