@@ -68,11 +68,6 @@ public class Battle
         attackHistory.add(new AttackData(attackerName, "la balance (depuis les airs)", attack, false, 0));
     }
 
-    public static void flyableAttack(Side attacker, int index, int attack, ScoreManager scoreManager, Optional<Card> card, Board board)
-    {
-        flyableAttack(attacker, index, attack, scoreManager, card, board, new ArrayList<>());
-    }
-
     public void attack(Side attacker, Side defender, ScoreManager score, Player defenderPlayer, Board board, ArrayList<AttackData> attackHistory)
     {
         ArrayList<Card> actedCards = new ArrayList<>();

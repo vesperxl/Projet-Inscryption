@@ -2,11 +2,9 @@ package core;
 
 import Cards.Card;
 import Display.Display;
-import gameplay.AttackData;
-import gameplay.Battle;
-import gameplay.Player;
-import gameplay.Side;
+import gameplay.*;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class GameDisplay {
@@ -295,17 +293,16 @@ public class GameDisplay {
 
         boolean actionSucces = false;
 
-        while (!actionSucces) {
+        Deck deck = currentGame.getPlayer().getDeck();
+
+        while (!actionSucces)
+        {
+            Display.displayDeck(deck);
 
             int sourceIndex = -1;
             while (sourceIndex == -1) {
-                System.out.print("Entrez la case de la créature à sacrifier (ex: B1) ou tapez 'non' pour passer : ");
+                System.out.print("Entrez l'index de la carte à sacrifier");
                 String source = scanner.next();
-
-                if (source.equalsIgnoreCase("non")) {
-                    System.out.println("Évènement de la Pierre de Sacrifice passé.");
-                    return;
-                }
 
                 sourceIndex = currentGame.caseTrad(source.toUpperCase());
                 if (sourceIndex == -1) {
@@ -313,7 +310,7 @@ public class GameDisplay {
                 }
             }
 
-            java.util.Optional<Card> sourceCardOpt = currentGame.getBoard().getCard(sourceIndex, Side.PLAYER);
+            Optional<Card> sourceCardOpt = currentGame.getBoard().getCard(sourceIndex, Side.PLAYER);
 
             if (sourceCardOpt.isEmpty()) {
                 System.out.println("Erreur : Il n'y a aucune créature sur cette case. Recommençons.\n");
