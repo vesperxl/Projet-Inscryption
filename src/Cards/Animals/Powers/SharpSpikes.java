@@ -5,7 +5,7 @@ import Cards.Card;
 public class SharpSpikes extends Power{
     @Override
     public String getName() {
-        return "Piq. Point.";
+        return "Piq. Poin.";
     }
 
     @Override
