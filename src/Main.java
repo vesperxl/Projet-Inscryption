@@ -7,7 +7,6 @@ public class Main {
 
         GameDisplay jeu = new GameDisplay();
         jeu.launchGame();
-
     }
 
 }
