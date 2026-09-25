@@ -1,6 +1,6 @@
 # Inscryption — Java
 
-Adaptation console du jeu de cartes [Inscryption](https://www.inscryption.com/), réalisée en Java dans le cadre de la SAÉ 2.01 (BUT Informatique, Université de Strasbourg).
+Adaptation console du jeu de cartes [Inscryption](https://www.inscryption.com/) de Daniel Mullins Games, réalisée en Java dans le cadre de la SAÉ 2.01 (BUT Informatique, Université de Strasbourg).
 
 ## Le jeu
 
@@ -85,6 +85,20 @@ Les pouvoirs sont transférables via la pierre de sacrifice à la 3ème manche.
 └── deps/                   # JUnit + Hamcrest
 ```
 
+## Conception
+
+Le projet repose sur une hiérarchie de classes avec `Card` comme classe abstraite, étendue par `AnimalsCard` et `ObstaclesCard`. Les cartes volantes (Moineau, Corbeau) redéfinissent la méthode `attack()` pour contourner le défenseur — du polymorphisme classique.
+
+Les pouvoirs utilisent un pattern Strategy : chaque pouvoir est une sous-classe de `Power` avec des hooks (`onEnemyAttackCalculation`, `onDamageDealt`, `onTurnEnd`, `onAttacked`, etc.) qui sont appelés au bon moment par le moteur de jeu. Ça permet d'ajouter un nouveau pouvoir sans toucher au code existant, et de les combiner librement entre eux via la pierre de sacrifice.
+
+La logique de jeu (`Game`) est séparée de l'affichage (`Display`, `GameDisplay`), ce qui fait que le moteur est testable indépendamment de l'interface console.
+
+Les retours d'actions (placement, pioche, sacrifice) passent par des enums de statut (`PlaceStatus`, `DrawStatus`, `SacrificeStatus`) plutôt que des booléens, pour avoir des messages d'erreur précis côté affichage.
+
+## Tests
+
+6 suites de tests JUnit couvrent le combat, le plateau, les pouvoirs, le score, le joueur et le moteur de jeu. Chacun des 6 pouvoirs a ses propres tests dédiés.
+
 ## Compilation et exécution
 
 ```bash
@@ -93,22 +107,14 @@ find src -name "*.java" | xargs javac -d out/
 
 # Lancer
 java -cp out/ Main
-```
 
-### Tests
-
-```bash
 # Compiler avec les tests
 find src tests -name "*.java" | xargs javac -cp deps/junit-4.13.2.jar:deps/hamcrest-core-1.3.jar -d out/
 
-# Lancer les tests (exemple)
+# Lancer un test
 java -cp out/:deps/junit-4.13.2.jar:deps/hamcrest-core-1.3.jar org.junit.runner.JUnitCore Cards.PowerTest
-java -cp out/:deps/junit-4.13.2.jar:deps/hamcrest-core-1.3.jar org.junit.runner.JUnitCore gameplay.BattleTest
 ```
-
-
-SAÉ 2.01 — BUT Informatique, Université de Strasbourg (2025)
 
 ---
 
-Inspiré du jeu [Inscryption](https://www.inscryption.com/) par Daniel Mullins Games.
+Projet réalisé en BUT Informatique, Université de Strasbourg (2025). Inspiré du jeu [Inscryption](https://www.inscryption.com/) par Daniel Mullins Games.
